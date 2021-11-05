@@ -1,12 +1,14 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import SignInPage from './src/components/screens/sign-in/SignInPage';
 
 const App = (): JSX.Element => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.view}>
+      {/* <View style={styles.view}>
         <Text style={styles.textStyle}>PNU-JustDoIt</Text>
-      </View>
+      </View> */}
+      <SignInPage />
     </SafeAreaView>
   );
 };
