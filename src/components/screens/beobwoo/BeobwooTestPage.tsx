@@ -6,9 +6,6 @@ export default function BeobwooTestPage(): JSX.Element {
     <View
       style={{
         display: 'flex',
-        backgroundColor: 'tomato',
-        justifyContent: 'center',
-        alignItems: 'center',
       }}>
       <Text>법우 페이지</Text>
     </View>
