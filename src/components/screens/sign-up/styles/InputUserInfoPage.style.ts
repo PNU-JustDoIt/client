@@ -1,27 +1,31 @@
 import {StyleSheet} from 'react-native';
 
-export const SignInPageStyles = StyleSheet.create({
+const InputUserInfoPageStyles = StyleSheet.create({
   root: {
     width: '100%',
     height: '100%',
     display: 'flex',
-    alignItems: 'center',
 
     backgroundColor: 'black',
+  },
+  scrollView: {
+    alignItems: 'center',
   },
   container: {
     width: '87.2%',
     height: '100%',
   },
   topContainer: {
-    marginTop: 56,
-    justifyContent: 'center',
+    paddingTop: 56,
+    paddingBottom: 61,
+    alignItems: 'center',
   },
   middleContainer: {
-    marginTop: 56,
+    height: 'auto',
   },
   bottomContainer: {
-    marginTop: 40,
+    height: 'auto',
+    marginTop: 8,
   },
 
   titleText: {
@@ -34,4 +38,4 @@ export const SignInPageStyles = StyleSheet.create({
   },
 });
 
-export default SignInPageStyles;
+export default InputUserInfoPageStyles;

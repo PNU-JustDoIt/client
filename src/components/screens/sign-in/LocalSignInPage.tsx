@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 
 // Styles
-import SignInPageStyles from './styles/SignInPage.styles';
+import LocalSignInPageStyles from './styles/LocalSignInPage.style';
 
 // Organisms
 import IdInput from '../../organisms/sign-in/IdInput';
@@ -10,9 +10,9 @@ import PasswordInput from '../../organisms/sign-in/PasswordInput';
 import LoginButton from '../../organisms/sign-in/LoginButton';
 import FindButton from '../../organisms/sign-in/FindButton';
 
-export default function SignInPage(): JSX.Element {
-  // SignInPage Styles
-  const styles = SignInPageStyles;
+export default function LocalSignInPage(): JSX.Element {
+  // LocalSignInPage Styles
+  const styles = LocalSignInPageStyles;
 
   // 사용자가 입력한 이메일 주소
   const [userEmail, setUserEmail] = useState<string>('');

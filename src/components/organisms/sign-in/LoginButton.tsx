@@ -3,7 +3,7 @@ import {TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-elements';
 
 // Styles
-import LoginButtonStyles from './styles/LoginButton.styles';
+import LoginButtonStyles from './styles/LoginButton.style';
 
 export interface LoginButtonProps {
   userEmail: string;

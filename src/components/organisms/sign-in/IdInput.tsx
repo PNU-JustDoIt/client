@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {Input, Text} from 'react-native-elements';
 
 // Styles
-import IdInputStyles from './styles/IdInput.styles';
+import IdInputStyles from './styles/IdInput.style';
 
 export interface IdInputProps {
   userEmail: string;
