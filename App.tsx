@@ -1,8 +1,10 @@
+import {configure} from 'axios-hooks';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
+import axios from './src/utils/axios';
 
 // Screens
 import SignInSelectPage from './src/components/screens/sign-in/SignInSelectPage';
@@ -72,6 +74,9 @@ const App = (): JSX.Element => {
     </NavigationContainer>
   );
 };
+
+/* Global Axios Instance */
+configure({axios: axios.axiosInstance});
 
 const styles = StyleSheet.create({
   safeAreaView: {
