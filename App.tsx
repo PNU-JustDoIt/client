@@ -1,5 +1,7 @@
+import {configure} from 'axios-hooks';
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import axios from './src/utils/axios';
 
 const App = (): JSX.Element => {
   return (
@@ -10,6 +12,9 @@ const App = (): JSX.Element => {
     </SafeAreaView>
   );
 };
+
+/* Global Axios Instance */
+configure({axios: axios.axiosInstance});
 
 const styles = StyleSheet.create({
   safeAreaView: {
