@@ -1,6 +1,5 @@
 import {configure} from 'axios-hooks';
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
@@ -19,6 +18,9 @@ const TransitionScreenOptions = {
 };
 
 const Stack = createStackNavigator<StackParamList>();
+
+/* Global Axios Instance */
+configure({axios: axios.axiosInstance});
 
 const App = (): JSX.Element => {
   return (
@@ -74,28 +76,5 @@ const App = (): JSX.Element => {
     </NavigationContainer>
   );
 };
-
-/* Global Axios Instance */
-configure({axios: axios.axiosInstance});
-
-const styles = StyleSheet.create({
-  safeAreaView: {
-    width: '100%',
-    height: '100%',
-
-    backgroundColor: 'black',
-  },
-  view: {
-    width: '100%',
-    height: '100%',
-
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textStyle: {
-    fontSize: 50,
-    color: 'white',
-  },
-});
 
 export default App;
