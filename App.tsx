@@ -1,15 +1,20 @@
 import {configure} from 'axios-hooks';
 import React from 'react';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import axios from './src/utils/axios';
+import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
+import {NavigationContainer} from '@react-navigation/native';
+import HomeScreen from './src/components/screens/home/HomeScreen';
 
 const App = (): JSX.Element => {
+  const Stack = createStackNavigator<StackParamList>();
   return (
-    <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.view}>
-        <Text style={styles.textStyle}>PNU-JustDoIt</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="메인 화면" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

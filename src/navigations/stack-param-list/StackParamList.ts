@@ -4,4 +4,5 @@
  */
 export type StackParamList = {
   테스트: any;
+  '메인 화면': undefined;
 };
