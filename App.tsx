@@ -11,6 +11,8 @@ import LocalSignInPage from './src/components/screens/sign-in/LocalSignInPage';
 import InputPhoneNumberPage from './src/components/screens/sign-up/InputPhoneNumberPage';
 import FindIdResultPage from './src/components/screens/find-id/FindIdResultPage';
 import InputUserInfoPage from './src/components/screens/sign-up/InputUserInfoPage';
+import UserContext, {useUser} from './src/utils/context/User.context';
+import Test from './src/components/screens/test';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
@@ -23,57 +25,84 @@ const Stack = createStackNavigator<StackParamList>();
 configure({axios: axios.axiosInstance});
 
 const App = (): JSX.Element => {
+  /* User Context */
+  const {user, isLogined, saveAccessToken, getProfile, localLogin} = useUser();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={TransitionScreenOptions}>
-        <>
-          <Stack.Screen
-            name="로그인 방법 선택 페이지"
-            component={SignInSelectPage}
-            options={{
-              headerShown: false,
-              headerTitle: ' ',
-            }}
-          />
+    <UserContext.Provider
+      value={{
+        user,
+        isLogined,
+        saveAccessToken,
+        getProfile,
+        localLogin,
+      }}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={TransitionScreenOptions}>
+          <>
+            {isLogined ? (
+              <>
+                <Stack.Screen
+                  name="테스트"
+                  component={Test}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <Stack.Screen
+                  name="로그인 방법 선택 페이지"
+                  component={SignInSelectPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
 
-          <Stack.Screen
-            name="로컬 로그인"
-            component={LocalSignInPage}
-            options={{
-              headerShown: false,
-              headerTitle: ' ',
-            }}
-          />
+                <Stack.Screen
+                  name="로컬 로그인"
+                  component={LocalSignInPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
 
-          <Stack.Screen
-            name="회원가입 또는 아이디 찾기"
-            component={InputPhoneNumberPage}
-            options={{
-              headerShown: false,
-              headerTitle: ' ',
-            }}
-          />
+                <Stack.Screen
+                  name="회원가입 또는 아이디 찾기"
+                  component={InputPhoneNumberPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
 
-          <Stack.Screen
-            name="회원가입 정보 입력"
-            component={InputUserInfoPage}
-            options={{
-              headerShown: false,
-              headerTitle: ' ',
-            }}
-          />
+                <Stack.Screen
+                  name="회원가입 정보 입력"
+                  component={InputUserInfoPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
 
-          <Stack.Screen
-            name="아이디 찾기 결과"
-            component={FindIdResultPage}
-            options={{
-              headerShown: false,
-              headerTitle: ' ',
-            }}
-          />
-        </>
-      </Stack.Navigator>
-    </NavigationContainer>
+                <Stack.Screen
+                  name="아이디 찾기 결과"
+                  component={FindIdResultPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+              </>
+            )}
+          </>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 };
 

@@ -6,6 +6,7 @@ import {Text} from 'react-native-elements';
 import AuthRequestButtonStyles from './styles/AuthRequestButton.style';
 
 export interface AuthRequestButtonProps {
+  handleAuthNumber: () => void;
   handleisAuthRequested: (bool: boolean) => void;
   disabled: boolean;
 }
@@ -16,7 +17,7 @@ export default function AuthRequestButton(
   // AuthRequest Styles
   const styles = AuthRequestButtonStyles;
 
-  const {handleisAuthRequested, disabled} = props;
+  const {handleAuthNumber, handleisAuthRequested, disabled} = props;
 
   return (
     <View>
@@ -25,6 +26,7 @@ export default function AuthRequestButton(
         disabled={disabled}
         onPress={() => {
           console.log('인증번호 받기 버튼 클릭');
+          handleAuthNumber();
           handleisAuthRequested(true);
         }}>
         <Text style={styles.buttonText}>인증번호 받기</Text>

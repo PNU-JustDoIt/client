@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-elements';
 import {RouteProp, useRoute} from '@react-navigation/core';
@@ -13,6 +13,7 @@ import AuthRequestButton from '../../organisms/sign-up/AuthRequestButton';
 import AuthReRequestButton from '../../organisms/sign-up/AuthReRequestButton';
 import DoneButton from '../../organisms/sign-up/DoneButton';
 import PhoneInput from '../../organisms/sign-up/PhoneInput';
+import useAxios from 'axios-hooks';
 
 export default function InputPhoneNumberPage(): JSX.Element {
   // InputPhoneNumberPage Styles
@@ -22,10 +23,19 @@ export default function InputPhoneNumberPage(): JSX.Element {
     useRoute<RouteProp<StackParamList, '회원가입 또는 아이디 찾기'>>();
   const {title} = route.params;
 
-  /**
-   * authNumber dummy
-   */
-  const authNumber = '1234';
+  // 인증 번호
+  const [AUTHENTICATION_NUMBER, SET_AUTHENTICATION_NUMBER] =
+    useState<string>('');
+  const handleAuthNumber = () => {
+    executeGetAuthNumber()
+      .then(res => {
+        console.log('res.data:', res.data);
+        SET_AUTHENTICATION_NUMBER(res.data);
+      })
+      .catch(err => {
+        console.log('[handleAuthNumber] err:', err);
+      });
+  };
 
   // 인증 완료 여부
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -62,16 +72,34 @@ export default function InputPhoneNumberPage(): JSX.Element {
   const [userAuth, setUserAuth] = useState<string>('');
   const handleUserAuth = (e: any) => {
     const refined = e.replace(/[^0-9]/g, '');
+    setUserAuth(refined);
 
-    if (e === authNumber) {
+    if (parseInt(e) === parseInt(AUTHENTICATION_NUMBER)) {
       console.log('auth 성공');
       handleIsAuthenticated(true);
     } else {
       console.log('auth 실패');
     }
-
-    setUserAuth(refined);
   };
+
+  const [
+    {
+      data: getAuthNumberData,
+      loading: getAuthNumberLoading,
+      error: getAuthNumberError,
+    },
+    executeGetAuthNumber,
+  ] = useAxios(
+    {
+      method: 'GET',
+      url: 'user/get-auth-number',
+    },
+    {manual: true},
+  );
+
+  useEffect(() => {
+    console.log('[useEffect] AUTHENTICATION_NUMBER:', AUTHENTICATION_NUMBER);
+  }, [AUTHENTICATION_NUMBER]);
 
   return (
     <View style={styles.root}>
@@ -106,6 +134,7 @@ export default function InputPhoneNumberPage(): JSX.Element {
         <View style={styles.bottomContainer}>
           {!isAuthRequested ? (
             <AuthRequestButton
+              handleAuthNumber={handleAuthNumber}
               handleisAuthRequested={handleisAuthRequested}
               disabled={!phoneRegex.test(userPhone)}
             />
