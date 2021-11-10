@@ -12,7 +12,13 @@ const App = (): JSX.Element => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="메인 화면" component={HomeScreen} />
+        <Stack.Screen
+          name="메인 화면"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -3,12 +3,12 @@ import {Text, View} from 'react-native';
 
 import LectureList from './lecture-list/LectureList';
 import LectureShare from './lecture-share/LectureShare';
-
+import styles from './style/HomeTabStyles';
 const HomeTabScreen = () => {
   return (
-    <View>
-      <LectureList />
+    <View style={styles.homeback}>
       <LectureShare />
+      <LectureList />
     </View>
   );
 };
