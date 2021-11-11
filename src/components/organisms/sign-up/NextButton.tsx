@@ -1,42 +1,50 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {Alert, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-elements';
-import {UserInfo} from '../../screens/sign-up/InputUserInfoPage';
+import {CreateUserReq} from './dto/create-user-req.dto';
 
 // Styles
 import NextButtonStyles from './styles/NextButton.style';
 
 export interface NextButtonProps {
-  userInfo: UserInfo;
+  userData: CreateUserReq;
+  handleCreateLocalUser: (userData: CreateUserReq) => Promise<boolean>;
   disabled: boolean;
+  resetUserInput: () => void;
 }
 
 export default function NextButton(props: NextButtonProps): JSX.Element {
   // NextButton Styles
   const styles = NextButtonStyles;
 
-  const {userInfo, disabled} = props;
+  const {userData, handleCreateLocalUser, disabled, resetUserInput} = props;
 
   const navigation = useNavigation<any>();
-
-  console.log('userInfo: ', userInfo);
 
   return (
     <View>
       <TouchableOpacity
         style={disabled ? styles.disabled : styles.nextButton}
         disabled={disabled}
-        onPress={() => {
+        onPress={async () => {
           console.log('다음으로 버튼 클릭');
 
-          /**
-           * local user 생성 요청부 dummy
-           */
+          const res = await handleCreateLocalUser(userData);
 
-          navigation.reset({
-            routes: [{name: '로컬 로그인'}],
-          });
+          if (res) {
+            Alert.alert('회원가입이 완료되었습니다.', '', [{text: '확인'}], {
+              cancelable: false,
+            });
+            navigation.reset({
+              routes: [{name: '로컬 로그인'}],
+            });
+          } else {
+            Alert.alert('회원가입에 실패했습니다.', '', [{text: '확인'}], {
+              cancelable: false,
+            });
+            resetUserInput();
+          }
         }}>
         <Text style={styles.nextButtonText}>다음으로</Text>
       </TouchableOpacity>

@@ -6,7 +6,9 @@ import {Text} from 'react-native-elements';
 import AuthRequestButtonStyles from './styles/AuthRequestButton.style';
 
 export interface AuthRequestButtonProps {
-  handleAuthNumber: () => void;
+  userPhone: string;
+  // handleSendSMS: (userPhone: string) => Promise<string | null>;
+  handleSendSMS: (userPhone: string) => void;
   handleisAuthRequested: (bool: boolean) => void;
   disabled: boolean;
 }
@@ -17,16 +19,16 @@ export default function AuthRequestButton(
   // AuthRequest Styles
   const styles = AuthRequestButtonStyles;
 
-  const {handleAuthNumber, handleisAuthRequested, disabled} = props;
+  const {userPhone, handleSendSMS, handleisAuthRequested, disabled} = props;
 
   return (
     <View>
       <TouchableOpacity
         style={styles.requestButton}
         disabled={disabled}
-        onPress={() => {
+        onPress={async () => {
           console.log('인증번호 받기 버튼 클릭');
-          handleAuthNumber();
+          await handleSendSMS(userPhone);
           handleisAuthRequested(true);
         }}>
         <Text style={styles.buttonText}>인증번호 받기</Text>

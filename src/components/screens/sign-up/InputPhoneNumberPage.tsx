@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-elements';
 import {RouteProp, useRoute} from '@react-navigation/core';
@@ -24,16 +24,28 @@ export default function InputPhoneNumberPage(): JSX.Element {
   const {title} = route.params;
 
   // 인증 번호
-  const [AUTHENTICATION_NUMBER, SET_AUTHENTICATION_NUMBER] =
-    useState<string>('');
-  const handleAuthNumber = () => {
-    executeGetAuthNumber()
+  const [AUTHENTICATION_NUMBER, SET_AUTHENTICATION_NUMBER] = useState<
+    string | null
+  >(null);
+  const [, executeSendSMS] = useAxios<string | null>(
+    {
+      method: 'POST',
+      url: 'naver-sens/sendSMS',
+    },
+    {manual: true},
+  );
+  const handleSendSMS = async (userPhone: string) => {
+    executeSendSMS({
+      data: {
+        user_phone: userPhone,
+      },
+    })
       .then(res => {
-        console.log('res.data:', res.data);
+        console.log('[handleSendSMS] res.data:', res.data);
         SET_AUTHENTICATION_NUMBER(res.data);
       })
       .catch(err => {
-        console.log('[handleAuthNumber] err:', err);
+        console.log('[handleSendSMS] err', err.data);
       });
   };
 
@@ -74,32 +86,19 @@ export default function InputPhoneNumberPage(): JSX.Element {
     const refined = e.replace(/[^0-9]/g, '');
     setUserAuth(refined);
 
-    if (parseInt(e) === parseInt(AUTHENTICATION_NUMBER)) {
+    if (
+      AUTHENTICATION_NUMBER &&
+      parseInt(e) === parseInt(AUTHENTICATION_NUMBER)
+    ) {
       console.log('auth 성공');
       handleIsAuthenticated(true);
     } else {
+      if (AUTHENTICATION_NUMBER === null) {
+        console.log('authentication number get 실패');
+      }
       console.log('auth 실패');
     }
   };
-
-  const [
-    {
-      data: getAuthNumberData,
-      loading: getAuthNumberLoading,
-      error: getAuthNumberError,
-    },
-    executeGetAuthNumber,
-  ] = useAxios(
-    {
-      method: 'GET',
-      url: 'user/get-auth-number',
-    },
-    {manual: true},
-  );
-
-  useEffect(() => {
-    console.log('[useEffect] AUTHENTICATION_NUMBER:', AUTHENTICATION_NUMBER);
-  }, [AUTHENTICATION_NUMBER]);
 
   return (
     <View style={styles.root}>
@@ -134,7 +133,8 @@ export default function InputPhoneNumberPage(): JSX.Element {
         <View style={styles.bottomContainer}>
           {!isAuthRequested ? (
             <AuthRequestButton
-              handleAuthNumber={handleAuthNumber}
+              userPhone={userPhone.replace(/-/gi, '')}
+              handleSendSMS={handleSendSMS}
               handleisAuthRequested={handleisAuthRequested}
               disabled={!phoneRegex.test(userPhone)}
             />

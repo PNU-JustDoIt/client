@@ -1,3 +1,4 @@
+import {AxiosPromise} from 'axios';
 import React from 'react';
 import {KeyboardTypeOptions, TouchableOpacity, View} from 'react-native';
 import {Text, Input} from 'react-native-elements';
@@ -10,6 +11,7 @@ export interface InputWithDupCheckProps {
   userInput: string;
   handleUserInput: (e: any) => void;
   regex: RegExp;
+  handleDupCheck: (userEmail: string) => void;
 
   label: string;
   placeholder: string;
@@ -27,6 +29,7 @@ export default function InputWithDupCheck(
     userInput,
     handleUserInput,
     regex,
+    handleDupCheck,
     label,
     placeholder,
     keyboardType,
@@ -66,8 +69,10 @@ export default function InputWithDupCheck(
 
         <TouchableOpacity
           style={styles.dupCheckButton}
+          disabled={!regex.test(userInput)}
           onPress={() => {
             console.log('중복확인 버튼 클릭');
+            handleDupCheck(userInput);
           }}>
           <Text style={styles.dupCheckButtonText}>중복확인</Text>
         </TouchableOpacity>
