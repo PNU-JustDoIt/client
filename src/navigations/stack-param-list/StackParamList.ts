@@ -10,7 +10,7 @@ export type StackParamList = {
   '로컬 로그인': any;
   '회원가입 또는 아이디 찾기': InputPhoneNumberPageParams;
   '회원가입 정보 입력': InputUserInfoPageParams;
-  '아이디 찾기 결과': any;
+  '아이디 찾기 결과': InputUserInfoPageParams;
 
   테스트: any;
   '카카오 로그인': any;

@@ -1,6 +1,9 @@
-import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {RouteProp, useRoute} from '@react-navigation/core';
+import useAxios from 'axios-hooks';
+import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
 import {Text} from 'react-native-elements';
+import {StackParamList} from '../../../navigations/stack-param-list/StackParamList';
 import FindPasswordButton from '../../organisms/find-id/FindPasswordButton';
 import LoginButton from '../../organisms/find-id/LoginButton';
 
@@ -11,10 +14,32 @@ export default function FindIdResultPage(): JSX.Element {
   // FindIdResultPage Styles
   const styles = FindIdResultPageStyles;
 
-  /**
-   * ID dummy
-   */
-  const result = 'yena****@na***.com';
+  const route = useRoute<RouteProp<StackParamList, '아이디 찾기 결과'>>();
+  const {userPhone} = route.params;
+
+  const [result, setResult] = useState<string>('');
+  const [{data: getData, loading: getLoading, error: getError}, fetchId] =
+    useAxios(
+      {
+        method: 'GET',
+        url: `user/find-userid-by-userphone/${userPhone}`,
+      },
+      {manual: true},
+    );
+  const handleFetchId = () => {
+    fetchId()
+      .then(res => {
+        console.log('res.data:', res.data);
+        setResult(res.data);
+      })
+      .catch(err => {
+        console.log('err:', err);
+      });
+  };
+
+  useEffect(() => {
+    handleFetchId();
+  }, [getData]);
 
   return (
     <View style={styles.root}>
@@ -24,7 +49,11 @@ export default function FindIdResultPage(): JSX.Element {
         </View>
 
         <View style={styles.middleContainer}>
-          <Text style={styles.idText}>{`아이디: ${result}`}</Text>
+          {!getLoading && !getError && getData && getData !== null ? (
+            <Text style={styles.idText}>{`아이디: ${result}`}</Text>
+          ) : (
+            <Text style={styles.idText}>{`아이디를 찾을 수 없습니다.`}</Text>
+          )}
           <Text style={styles.explainText}>고객님의 아이디입니다.</Text>
         </View>
 
