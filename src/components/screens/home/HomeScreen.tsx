@@ -31,6 +31,8 @@ const HomeScreen = (): JSX.Element => {
           flexDirection: 'row',
           width: '100%',
           position:'relative',
+          borderBottomColor: '#0161ff',
+          borderBottomWidth: 1,
         }}>
         <View style={{width: '30%'}}>
           <TouchableOpacity

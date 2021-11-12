@@ -9,7 +9,7 @@ const LectureShare = () => {
         <Text
           style={{
             fontSize: 17,
-            fontFamily: 'Roboto',
+            // fontFamily: 'Roboto',
             color: 'rgb(10,100,255)',
           }}>
           강의평가
