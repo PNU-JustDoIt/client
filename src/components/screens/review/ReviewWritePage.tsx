@@ -1,24 +1,22 @@
 import React from 'react';
-import {
-  Platform,
-  ScrollView,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import {Platform, ScrollView, Text, View, TouchableOpacity} from 'react-native';
 
 import {
   Input,
   Icon,
-  SearchBar,
   makeStyles,
   Rating,
   AirbnbRating,
   CheckBox,
   ButtonGroup,
+  Image,
 } from 'react-native-elements';
+
+import {
+  launchImageLibrary,
+  ImageLibraryOptions,
+  Callback,
+} from 'react-native-image-picker';
 
 export interface InputLabelProps {
   text: string;
@@ -185,6 +183,43 @@ const useStyle = makeStyles(() => ({
     borderWidth: 0.7,
     borderColor: '#ffffff',
   },
+
+  /* 이미지 선택 관련 스타일 */
+  imageSelectorContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 8,
+  },
+  galleryOpenButtonContainer: {
+    height: 100,
+    width: 100,
+    marginRight: 16,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    backgroundColor: '#2b2b2b',
+  },
+  galleryOpenButtonText: {
+    fontSize: 11,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: -0.33,
+    textAlign: 'center',
+    color: '#ffffff',
+    marginTop: 6,
+  },
+  selectedImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 4,
+  },
+  closeIconButton: {
+    position: 'absolute',
+    right: -10,
+    top: -10,
+    zIndex: 10,
+  },
 }));
 
 const ReviewWritePage = (): JSX.Element => {
@@ -343,6 +378,67 @@ const ReviewWritePage = (): JSX.Element => {
     );
   };
 
+  const ConfirmImageSelector = (props: any): JSX.Element => {
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo',
+      maxHeight: 300,
+      maxWidth: 300,
+      selectionLimit: 1,
+    };
+
+    return (
+      <View style={styles.imageSelectorContainer}>
+        <TouchableOpacity
+          onPress={() =>
+            launchImageLibrary(options, res => {
+              const selectedImage = res.assets;
+              if (selectedImage && selectedImage[0].uri) {
+                setLectureConfirmImage(selectedImage[0].uri);
+              } else {
+                console.log('[Error : 갤러리 내 이미지 선택]');
+              }
+            })
+          }
+          style={styles.galleryOpenButtonContainer}>
+          <Icon
+            name="image"
+            type="material"
+            color="#ffffff"
+            tvParallaxProperties={undefined}
+            size={50}
+          />
+          <Text style={styles.galleryOpenButtonText}>이미지 추가</Text>
+        </TouchableOpacity>
+
+        {lectureConfirmImage && (
+          <View>
+            <Image
+              source={{
+                uri: lectureConfirmImage,
+              }}
+              style={styles.selectedImage}
+            />
+
+            <TouchableOpacity
+              onPress={() => setLectureConfirmImage(undefined)}
+              style={styles.closeIconButton}>
+              <Icon
+                name="cancel"
+                type="material"
+                color="#ffffff"
+                tvParallaxProperties={undefined}
+                size={25}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    );
+  };
+
+  const [lectureConfirmImage, setLectureConfirmImage] =
+    React.useState<string>();
+
   return (
     <ScrollView style={styles.root}>
       <View style={[styles.blockMargin]}>
@@ -368,13 +464,7 @@ const ReviewWritePage = (): JSX.Element => {
           text="수강 인증"
           subText="수강 화면, 필기 내용, 출석표, 시간표 등 이미지로 인증해 주세요."
         />
-        <View
-          style={{
-            height: 72,
-            borderWidth: 2,
-            borderColor: 'white',
-          }}
-        />
+        <ConfirmImageSelector />
       </View>
 
       <View style={[styles.blockMargin]}>
