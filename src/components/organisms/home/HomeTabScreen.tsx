@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-import LectureList from './lecture-list/LectureList';
-import LectureShare from './lecture-share/LectureShare';
+import LectureList from './LectureList';
+import LectureShare from './LectureShare';
 import styles from './style/HomeTabStyles';
 const HomeTabScreen = () => {
   return (
