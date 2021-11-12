@@ -133,7 +133,6 @@ const useStyle = makeStyles(() => ({
     fontSize: 14,
     fontWeight: 'normal',
     fontStyle: 'normal',
-    lineHeight: 17,
     letterSpacing: -0.28,
     textAlign: 'center',
     color: '#ffffff',
@@ -149,7 +148,6 @@ const useStyle = makeStyles(() => ({
     fontSize: 10,
     fontWeight: 'normal',
     fontStyle: 'normal',
-    lineHeight: 12,
     letterSpacing: -0.4,
     textAlign: 'left',
     color: '#ffffff',
@@ -215,7 +213,6 @@ const ReviewWritePage = (): JSX.Element => {
               fontSize: 12,
               fontWeight: 'normal',
               fontStyle: 'normal',
-              lineHeight: 15,
               letterSpacing: -0.24,
               textAlign: 'left',
               color: '#ffffff',
@@ -314,7 +311,7 @@ const ReviewWritePage = (): JSX.Element => {
             keyboardType="phone-pad"
             maxLength={1}
             containerStyle={{
-              width: 32,
+              width: 40,
               height: 21,
               marginRight: 12,
               borderRadius: 4,
