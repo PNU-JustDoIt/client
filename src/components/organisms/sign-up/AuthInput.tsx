@@ -34,9 +34,6 @@ export default function AuthInput(props: AuthInputProps): JSX.Element {
     <View style={disabled && styles.disabled}>
       <Text style={styles.labelStyle}>인증번호</Text>
       <Input
-        // rightIcon={
-        //   !disabled && <AuthCounter handleIsTimeout={handleIsTimeout} />
-        // }
         rightIcon={
           !disabled && !isAuthenticated ? (
             <>
