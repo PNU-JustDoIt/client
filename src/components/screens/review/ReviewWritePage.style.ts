@@ -160,10 +160,10 @@ const useStyle = makeStyles(() => ({
   testSelectedButtonStyle: {
     width: 64,
     borderRadius: 7,
-    backgroundColor: '#555555',
+    backgroundColor: '#0161ff',
     borderStyle: 'solid',
     borderWidth: 0.7,
-    borderColor: '#ffffff',
+    borderColor: '#0161ff',
   },
 
   /* 이미지 선택 관련 스타일 */

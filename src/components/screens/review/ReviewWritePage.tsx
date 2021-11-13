@@ -101,7 +101,7 @@ const ReviewWritePage = (): JSX.Element => {
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
             checked={checked}
-            checkedColor="white"
+            checkedColor="#0161ff"
             uncheckedColor="gray"
             containerStyle={[styles.radioButtonContainer]}
             textStyle={styles.radioButtonText}
@@ -112,7 +112,7 @@ const ReviewWritePage = (): JSX.Element => {
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
             checked={!checked}
-            checkedColor="white"
+            checkedColor="#0161ff"
             uncheckedColor="gray"
             containerStyle={styles.radioButtonContainer}
             textStyle={styles.radioButtonText}
@@ -404,8 +404,8 @@ const ReviewWritePage = (): JSX.Element => {
           <View style={styles.ratingContainer}>
             <Rating
               type="custom"
-              imageSize={30}
-              ratingColor="white"
+              imageSize={28}
+              ratingColor="#0161ff"
               ratingBackgroundColor="black"
               tintColor="black"
               startingValue={ratingValue}
