@@ -12,7 +12,7 @@ export type StackParamList = {
   '회원가입 정보 입력': InputUserInfoPageParams;
   '아이디 찾기 결과': InputUserInfoPageParams;
 
-  테스트: any;
+  마이페이지: any;
   '카카오 로그인': any;
   '비밀번호 찾기': any;
 };

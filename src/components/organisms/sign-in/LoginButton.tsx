@@ -37,7 +37,7 @@ export default function LoginButton(props: LoginButtonProps): JSX.Element {
               console.log('localLogin: res:', res);
 
               handleIsLoading(false);
-              navigation.navigate('테스트');
+              navigation.navigate('마이페이지');
             })
             .catch(err => {
               console.log('localLogin: err:', err);

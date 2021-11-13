@@ -8,4 +8,6 @@ export interface UserContextValue {
 
   getProfile: () => Promise<void>;
   localLogin: (userEmail: string, userPassword: string) => Promise<boolean>;
+  signout: () => Promise<void>;
+  resign: () => Promise<void>;
 }

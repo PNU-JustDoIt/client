@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {LocalLoginRes} from '../shared/dto/local-login-res.dto';
 import {User} from '../shared/interfaces/UserProfile.interface';
 import {UserContextValue} from '../shared/interfaces/UserContextValue.interface';
+import {DeleteUserRes} from '../../components/organisms/my-page/dto/delete-user-res.dto';
 
 const defaultUser: User = undefined;
 
@@ -14,6 +15,8 @@ const UserContext = createContext<UserContextValue>({
   getProfile: () => Promise.resolve(),
   localLogin: (userEmail: string, userPassword: string) =>
     Promise.resolve(false),
+  signout: () => Promise.resolve(),
+  resign: () => Promise.resolve(),
 });
 
 export function useUser(): UserContextValue {
@@ -130,12 +133,6 @@ export function useUser(): UserContextValue {
   );
 
   /**
-   
-   * @param userEmail
-   * @param userPassword
-   */
-
-  /**
    * @name 로컬_로그인_요청_핸들러
    * @param userEmail
    * @param userPassword
@@ -174,6 +171,47 @@ export function useUser(): UserContextValue {
     return false;
   };
 
+  const signout = async (): Promise<void> => {
+    await AsyncStorage.clear();
+    setUser(undefined);
+    setIsLogined(false);
+  };
+
+  /**
+   * @name 회원탈퇴_요청
+   */
+  const [
+    {data: deleteUserData, loading: deleteUserLoading, error: deleteUserError},
+    executeDeleteUser,
+  ] = useAxios<DeleteUserRes>(
+    {
+      method: 'DELETE',
+    },
+    {
+      manual: true,
+    },
+  );
+
+  /**
+   * @name 회원탈퇴_요청_핸들러
+   */
+  const resign = async (): Promise<void> => {
+    if (user && user.user_email) {
+      try {
+        executeDeleteUser({
+          url: `user/delete-local-user/${user.user_email}`,
+        }).then(async res => {
+          console.log('[executeDeleteUser] res.data:', res.data);
+          await signout();
+        });
+      } catch (err) {
+        console.log('[executeDeleteUser] err:', err);
+      }
+    } else {
+      console.log('user_email 이 존재하지 않습니다.');
+    }
+  };
+
   return {
     user,
     isLogined,
@@ -182,6 +220,8 @@ export function useUser(): UserContextValue {
 
     getProfile,
     localLogin,
+    signout,
+    resign,
   };
 }
 
