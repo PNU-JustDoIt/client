@@ -17,210 +17,14 @@ import {
   ImageLibraryOptions,
   Callback,
 } from 'react-native-image-picker';
+import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
+
+import useStyle from './ReviewWritePage.style';
 
 export interface InputLabelProps {
   text: string;
   subText?: string;
 }
-
-const useStyle = makeStyles(() => ({
-  root: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-  blockMargin: {
-    marginBottom: 43,
-  },
-
-  /* 수업명 input box */
-  lectureNameContainerStyle: {
-    height: 40,
-    borderRadius: 4,
-    backgroundColor: '#404040',
-  },
-  lectureNameInputContainerStyle: {
-    height: 40,
-    borderRadius: 4,
-    borderBottomWidth: 0,
-  },
-  lectureNameInputStyle: {
-    fontSize: 14,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 17,
-    letterSpacing: -0.28,
-    textAlign: 'left',
-    color: '#ffffff',
-  },
-  lectureNameInputLeftIcon: {
-    type: 'font-awesome',
-    name: 'search',
-    color: 'white',
-    size: 16,
-  },
-  lectureNameInputLeftIconContainer: {
-    marginRight: 8,
-  },
-
-  lectureInfoText: {
-    fontSize: 14,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 17,
-    letterSpacing: -0.28,
-    textAlign: 'left',
-    color: '#ffffff',
-  },
-
-  divider: {
-    height: 0,
-    borderStyle: 'solid',
-    borderWidth: 0.7,
-    borderColor: '#585858',
-
-    marginBottom: 32,
-  },
-
-  /* 수업특징 multi line input box */
-  lectureDescriptionContainerStyle: {
-    maxHeight: 100,
-    borderRadius: 4,
-    backgroundColor: '#404040',
-    padding: 0,
-  },
-  lectureDescriptionInputContainerStyle: {
-    height: 100,
-    borderRadius: 4,
-    borderBottomWidth: 0,
-  },
-  lectureDescriptionInputStyle: {
-    fontSize: 14,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 17,
-    letterSpacing: -0.28,
-    textAlign: 'left',
-    color: '#ffffff',
-
-    textAlignVertical: 'top',
-  },
-
-  ratingContainer: {
-    alignItems: 'flex-start',
-  },
-
-  radioButtonContainer: {
-    padding: 0,
-    margin: 0,
-    borderWidth: 0,
-    backgroundColor: 'black',
-    marginLeft: 0,
-    marginRight: 0,
-  },
-  radioButtonText: {
-    fontSize: 15,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 23,
-    letterSpacing: 0,
-    textAlign: 'left',
-    color: '#ffffff',
-  },
-
-  subText: {
-    fontSize: 14,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    letterSpacing: -0.28,
-    textAlign: 'center',
-    color: '#ffffff',
-    textAlignVertical: 'center',
-  },
-
-  testInfoContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
-    marginTop: 13,
-  },
-  testInfoSubText: {
-    fontSize: 10,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    letterSpacing: -0.4,
-    textAlign: 'left',
-    color: '#ffffff',
-    opacity: 0.8,
-  },
-  testContainerStyle: {
-    marginLeft: 0,
-    marginRight: 0,
-    height: 32,
-    backgroundColor: 'black',
-    borderWidth: 0,
-    marginTop: 13,
-    width: '95%',
-  },
-  testButtonContainerStyle: {
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  testInnerBorderStyle: {
-    width: 0,
-  },
-  testButtonStyle: {
-    width: 64,
-    borderRadius: 7,
-    borderStyle: 'solid',
-    borderWidth: 0.7,
-    borderColor: '#ffffff',
-  },
-  testSelectedButtonStyle: {
-    width: 64,
-    borderRadius: 7,
-    backgroundColor: '#555555',
-    borderStyle: 'solid',
-    borderWidth: 0.7,
-    borderColor: '#ffffff',
-  },
-
-  /* 이미지 선택 관련 스타일 */
-  imageSelectorContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 8,
-  },
-  galleryOpenButtonContainer: {
-    height: 100,
-    width: 100,
-    marginRight: 16,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    backgroundColor: '#2b2b2b',
-  },
-  galleryOpenButtonText: {
-    fontSize: 11,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    letterSpacing: -0.33,
-    textAlign: 'center',
-    color: '#ffffff',
-    marginTop: 6,
-  },
-  selectedImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 4,
-  },
-  closeIconButton: {
-    position: 'absolute',
-    right: -10,
-    top: -10,
-    zIndex: 10,
-  },
-}));
 
 const ReviewWritePage = (): JSX.Element => {
   const styles = useStyle();
@@ -270,8 +74,15 @@ const ReviewWritePage = (): JSX.Element => {
     );
   };
 
-  const RadioButtonGroup = (props: any): JSX.Element => {
-    const {subText} = props;
+  const RadioButtonGroup = (props: {
+    subText: string;
+    radioValues: Array<boolean>;
+    handleRadioValues: (newState: boolean, idx: number) => void;
+    idx: number;
+  }): JSX.Element => {
+    const {subText, radioValues, handleRadioValues, idx} = props;
+    const checked = radioValues[idx];
+
     return (
       <View
         style={{
@@ -289,29 +100,37 @@ const ReviewWritePage = (): JSX.Element => {
             title="있음"
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
-            checked={true}
+            checked={checked}
             checkedColor="white"
             uncheckedColor="gray"
             containerStyle={[styles.radioButtonContainer]}
             textStyle={styles.radioButtonText}
+            onPress={() => handleRadioValues(true, idx)}
           />
           <CheckBox
             title="없음"
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
-            checked={false}
+            checked={!checked}
             checkedColor="white"
             uncheckedColor="gray"
             containerStyle={styles.radioButtonContainer}
             textStyle={styles.radioButtonText}
+            onPress={() => handleRadioValues(false, idx)}
           />
         </View>
       </View>
     );
   };
 
-  const SubTextWithCountBox = (props: any): JSX.Element => {
-    const {subText, desc} = props;
+  const SubTextWithCountBox = (props: {
+    subText: string;
+    desc?: string;
+    value: string;
+    handleChange: (e: string) => void;
+  }): JSX.Element => {
+    const {subText, desc, value, handleChange} = props;
+
     return (
       <View
         style={{
@@ -342,11 +161,10 @@ const ReviewWritePage = (): JSX.Element => {
             flexDirection: 'row',
           }}>
           <Input
-            defaultValue="0"
             keyboardType="phone-pad"
-            maxLength={1}
+            maxLength={3}
             containerStyle={{
-              width: 40,
+              width: 60,
               height: 21,
               marginRight: 12,
               borderRadius: 4,
@@ -367,6 +185,14 @@ const ReviewWritePage = (): JSX.Element => {
               letterSpacing: 0,
               textAlign: 'center',
               color: '#ffffff',
+            }}
+            value={value}
+            onChangeText={(e: string) => {
+              if (/^\d+$/.test(e)) {
+                handleChange(String(Number(e)));
+              } else {
+                handleChange('0');
+              }
             }}
           />
           <Text
@@ -436,111 +262,239 @@ const ReviewWritePage = (): JSX.Element => {
     );
   };
 
+  /**
+   * @name 검색할_수업명
+   */
+  const lectureNameInput = useEventTargetValue('');
+
+  /**
+   * @name 수강인증_이미지_URL
+   */
   const [lectureConfirmImage, setLectureConfirmImage] =
     React.useState<string>();
 
+  /**
+   * @name 검색된_수업정보
+   */
+  const [searchedLectureInfo] = React.useState<{
+    codeAndGroup: string;
+    category: string;
+    gradeAndTheory: string;
+  }>({
+    codeAndGroup: '-', //교과목 코드/분반,  ex) EA1301/061
+    category: '-', // 교과구분, ex)  일선
+    gradeAndTheory: '-', // 학점이론실습, ex) 3/3/2
+  });
+
+  /**
+   * @name 수업특징
+   */
+  const lectureDescriptionInput = useEventTargetValue('');
+
+  /**
+   * @name 교재활용도
+   */
+  const BOOK_STATE_LIST = ['필수', '높음', '보통', '낮음', '활용 X']; // database 에 저장 요청 할 실제 값 배열, bookStateIndex 값으로 접근
+  const [bookStateIndex, setBookStateIndex] = React.useState<number>(0);
+
+  /**
+   * @name 수업체감난이도
+   */
+  const [ratingValue, setRatingValue] = React.useState<number>(5);
+
+  /**
+   * @name 과제_및_조별유무
+   */
+  const [radioValues, setRadioValues] = React.useState<Array<boolean>>([
+    false,
+    false,
+  ]);
+  const handleRadioValues = (newState: boolean, idx: number) => {
+    const newOne = radioValues;
+    newOne[idx] = newState;
+    setRadioValues([...newOne]);
+  };
+
+  /**
+   * @name 학기중_시험_횟수
+   */
+  const [mainTestCount, setMainTestCount] = React.useState<string>('');
+  const [subTestCount, setSubTestCount] = React.useState<string>('');
+
+  /**
+   * @name 시험_유형
+   */
+  const TEST_CATEGORY_STATE_LIST = ['O/X형', '객관형', '단답형', '서술형']; // database 에 저장 요청 할 실제 값 배열, bookStateIndex 값으로 접근
+  const [testCategoryStateIndexs, setTestCategoryStateIndexs] = React.useState<
+    number[]
+  >([]);
+
   return (
-    <ScrollView style={styles.root}>
-      <View style={[styles.blockMargin]}>
-        <InputLabel text="수업명" />
-        <Input
-          containerStyle={[styles.lectureNameContainerStyle]}
-          inputContainerStyle={[styles.lectureNameInputContainerStyle]}
-          inputStyle={[styles.lectureNameInputStyle]}
-          selectionColor="white"
-          leftIconContainerStyle={[styles.lectureNameInputLeftIconContainer]}
-          leftIcon={styles.lectureNameInputLeftIcon}
+    <ScrollView>
+      <View style={[styles.root, styles.rootContainer]}>
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="수업명" />
+          <Input
+            containerStyle={[styles.lectureNameContainerStyle]}
+            inputContainerStyle={[styles.lectureNameInputContainerStyle]}
+            inputStyle={[styles.lectureNameInputStyle]}
+            selectionColor="white"
+            leftIconContainerStyle={[styles.lectureNameInputLeftIconContainer]}
+            leftIcon={styles.lectureNameInputLeftIcon}
+            value={lectureNameInput.value}
+            onChangeText={lectureNameInput.handleTextChange}
+          />
+        </View>
+
+        <InputLabelWithLectureInfo
+          labelText="교과목 코드 · 분반"
+          data={searchedLectureInfo.codeAndGroup}
+        />
+        <InputLabelWithLectureInfo
+          labelText="교과구분"
+          data={searchedLectureInfo.category}
+        />
+        <InputLabelWithLectureInfo
+          labelText="학점 · 이론 · 실습"
+          data={searchedLectureInfo.gradeAndTheory}
         />
       </View>
-
-      <InputLabelWithLectureInfo labelText="교과목 코드 · 분반" data="-" />
-      <InputLabelWithLectureInfo labelText="교과구분" data="-" />
-      <InputLabelWithLectureInfo labelText="학점 · 이론 · 실습" data="-" />
 
       <View style={styles.divider} />
 
-      <View style={styles.blockMargin}>
-        <InputLabel
-          text="수강 인증"
-          subText="수강 화면, 필기 내용, 출석표, 시간표 등 이미지로 인증해 주세요."
-        />
-        <ConfirmImageSelector />
-      </View>
+      <View style={[styles.root, styles.rootContainer]}>
+        <View style={styles.blockMargin}>
+          <InputLabel
+            text="수강 인증"
+            subText="수강 화면, 필기 내용, 출석표, 시간표 등 이미지로 인증해 주세요."
+          />
+          <ConfirmImageSelector />
+        </View>
 
-      <View style={[styles.blockMargin]}>
-        <InputLabel text="수업 특징" />
-        <Input
-          containerStyle={styles.lectureDescriptionContainerStyle}
-          inputContainerStyle={styles.lectureDescriptionInputContainerStyle}
-          inputStyle={styles.lectureDescriptionInputStyle}
-          selectionColor="white"
-          multiline
-          numberOfLines={2}
-        />
-      </View>
-
-      <View style={[styles.blockMargin]}>
-        <InputLabel text="교재 활용도" />
-        <ButtonGroup
-          selectMultiple
-          selectedIndexes={[1, 2]}
-          buttons={['필수', '높음', '보통', '낮음', '활용 X']}
-          containerStyle={[styles.testContainerStyle, {width: '100%'}]}
-          buttonContainerStyle={styles.testButtonContainerStyle}
-          innerBorderStyle={styles.testInnerBorderStyle}
-          buttonStyle={[styles.testButtonStyle]}
-          selectedButtonStyle={[styles.testSelectedButtonStyle]}
-        />
-      </View>
-
-      <View style={[styles.blockMargin]}>
-        <InputLabel text="수업 체감난이도" />
-        <View style={styles.ratingContainer}>
-          <Rating
-            type="custom"
-            imageSize={26}
-            ratingColor="white"
-            ratingBackgroundColor="black"
-            tintColor="black"
-            startingValue={5}
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="수업 특징" />
+          <Input
+            containerStyle={styles.lectureDescriptionContainerStyle}
+            inputContainerStyle={styles.lectureDescriptionInputContainerStyle}
+            inputStyle={styles.lectureDescriptionInputStyle}
+            selectionColor="white"
+            multiline
+            numberOfLines={2}
+            value={lectureDescriptionInput.value}
+            onChangeText={lectureDescriptionInput.handleTextChange}
           />
         </View>
-      </View>
 
-      <View style={[styles.blockMargin]}>
-        <InputLabel text="과제 · 리포트" />
-        <RadioButtonGroup subText="과제 · 리포트 유무" />
-      </View>
-
-      <View style={[styles.blockMargin]}>
-        <InputLabel text="조별" />
-        <RadioButtonGroup subText="조별 유무" />
-      </View>
-
-      <View style={[styles.blockMargin]}>
-        <InputLabel text="학기 중 시험" />
-        <SubTextWithCountBox subText="시험 총 횟수" desc="(중간 · 기말고사)" />
-        <SubTextWithCountBox subText="퀴즈 · 기타 시험" />
-
-        <View style={styles.testInfoContainer}>
-          <Text style={styles.subText}>
-            시험 유형
-            <Text style={styles.testInfoSubText}>
-              &nbsp;&nbsp; (중복 선택 가능)
-            </Text>
-          </Text>
-
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="교재 활용도" />
           <ButtonGroup
-            selectMultiple
-            selectedIndexes={[1, 2]}
-            buttons={['O/X형', '객관형', '단답형', '서술형']}
-            containerStyle={styles.testContainerStyle}
+            selectedIndex={bookStateIndex}
+            buttons={['필수', '높음', '보통', '낮음', '활용 X']}
+            containerStyle={[styles.testContainerStyle, {width: '100%'}]}
             buttonContainerStyle={styles.testButtonContainerStyle}
             innerBorderStyle={styles.testInnerBorderStyle}
-            buttonStyle={styles.testButtonStyle}
-            selectedButtonStyle={styles.testSelectedButtonStyle}
+            buttonStyle={[styles.testButtonStyle]}
+            selectedButtonStyle={[styles.testSelectedButtonStyle]}
+            onPress={(idx: number) => setBookStateIndex(idx)}
           />
         </View>
+
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="수업 체감난이도" />
+          <View style={styles.ratingContainer}>
+            <Rating
+              type="custom"
+              imageSize={30}
+              ratingColor="white"
+              ratingBackgroundColor="black"
+              tintColor="black"
+              startingValue={ratingValue}
+              onFinishRating={(rating: number) => setRatingValue(rating)}
+            />
+          </View>
+        </View>
+
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="과제 · 리포트" />
+          <RadioButtonGroup
+            subText="과제 · 리포트 유무"
+            idx={0}
+            handleRadioValues={handleRadioValues}
+            radioValues={radioValues}
+          />
+        </View>
+
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="조별" />
+          <RadioButtonGroup
+            subText="조별 유무"
+            idx={1}
+            handleRadioValues={handleRadioValues}
+            radioValues={radioValues}
+          />
+        </View>
+
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="학기 중 시험" />
+          <SubTextWithCountBox
+            subText="시험 총 횟수"
+            desc="(중간 · 기말고사)"
+            value={mainTestCount}
+            handleChange={(e: string) => setMainTestCount(e)}
+          />
+          <SubTextWithCountBox
+            subText="퀴즈 · 기타 시험"
+            value={subTestCount}
+            handleChange={(e: string) => setSubTestCount(e)}
+          />
+
+          <View style={styles.testInfoContainer}>
+            <Text style={styles.subText}>
+              시험 유형
+              <Text style={styles.testInfoSubText}>
+                &nbsp;&nbsp; (중복 선택 가능)
+              </Text>
+            </Text>
+
+            <ButtonGroup
+              selectMultiple
+              selectedIndexes={testCategoryStateIndexs}
+              buttons={TEST_CATEGORY_STATE_LIST}
+              containerStyle={styles.testContainerStyle}
+              buttonContainerStyle={styles.testButtonContainerStyle}
+              innerBorderStyle={styles.testInnerBorderStyle}
+              buttonStyle={styles.testButtonStyle}
+              selectedButtonStyle={styles.testSelectedButtonStyle}
+              onPress={list => {
+                setTestCategoryStateIndexs([...list]);
+              }}
+            />
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            height: 48,
+            borderRadius: 5,
+            backgroundColor: '#0161ff',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 100,
+            marginBottom: 30,
+          }}>
+          <Text
+            style={{
+              fontSize: 17,
+              fontWeight: 'normal',
+              fontStyle: 'normal',
+              letterSpacing: 0,
+              textAlign: 'left',
+              color: '#ffffff',
+            }}>
+            완료
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
