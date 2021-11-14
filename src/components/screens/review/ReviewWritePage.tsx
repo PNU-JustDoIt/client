@@ -1,22 +1,30 @@
 import React from 'react';
-import {Platform, ScrollView, Text, View, TouchableOpacity} from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 
 import {
   Input,
   Icon,
-  makeStyles,
   Rating,
-  AirbnbRating,
   CheckBox,
   ButtonGroup,
   Image,
 } from 'react-native-elements';
+import {Overlay} from 'react-native-elements/dist/overlay/Overlay';
 
 import {
   launchImageLibrary,
   ImageLibraryOptions,
   Callback,
 } from 'react-native-image-picker';
+import ModalDropdown from 'react-native-modal-dropdown';
+
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
 import useStyle from './ReviewWritePage.style';
@@ -256,10 +264,153 @@ const ReviewWritePage = (): JSX.Element => {
     number[]
   >([]);
 
+  const dummy = [
+    {
+      id: 0,
+      lectureName: '행복의 심리학',
+      code: 'ZF11803-001',
+      professorName: '서수길',
+    },
+    {
+      id: 1,
+      lectureName: '행복의 심리학',
+      code: 'ZF11803-001',
+      professorName: '서수길',
+    },
+    {
+      id: 2,
+      lectureName: '행복의 심리학',
+      code: 'ZF11803-001',
+      professorName: '서수길',
+    },
+    {
+      id: 3,
+      lectureName: '행복의 심리학',
+      code: 'ZF11803-001',
+      professorName: '서수길',
+    },
+    {
+      id: 4,
+      lectureName: '행복의 심리학',
+      code: 'ZF11803-001',
+      professorName: '서수길',
+    },
+  ];
+
+  /**
+   * @name 스크롤뷰_ref
+   */
+  const scrollRef = React.useRef<ScrollView>(null);
+  const onPressTouch = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        y: 0,
+        animated: false,
+      });
+    }
+  };
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  const SearchResult = () => {
+    return (
+      <FlatList
+        data={dummy}
+        style={{
+          paddingLeft: 0,
+          paddingRight: 0,
+          backgroundColor: '#262626',
+          maxHeight: 600,
+        }}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                backgroundColor: '#262626',
+                flexDirection: 'row',
+                height: 50,
+              }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  paddingLeft: 28,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 'normal',
+                    fontStyle: 'normal',
+                    lineHeight: 19,
+                    letterSpacing: 0,
+                    textAlign: 'left',
+                    color: '#ffffff',
+                  }}>
+                  {item.lectureName}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                }}>
+                <Text
+                  style={{
+                    opacity: 0.6,
+                    fontSize: 14,
+                    fontWeight: 'normal',
+                    fontStyle: 'normal',
+                    letterSpacing: 0,
+                    textAlign: 'left',
+                    color: '#ffffff',
+                    marginRight: 8,
+                  }}>
+                  {item.code}
+                </Text>
+                <Text
+                  style={{
+                    opacity: 0.8,
+                    fontSize: 14,
+                    fontWeight: 'normal',
+                    fontStyle: 'normal',
+                    letterSpacing: 0,
+                    textAlign: 'left',
+                    color: '#ffffff',
+                  }}>
+                  {item.professorName}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
+    );
+  };
+
   return (
-    <ScrollView>
-      <View style={[styles.root, styles.rootContainer]}>
-        <View style={[styles.blockMargin]}>
+    <ScrollView scrollsToTop={true} ref={scrollRef}>
+      <View style={styles.headerRoot}>
+        <TouchableOpacity style={styles.headerIconContainer}>
+          <Icon
+            name="close"
+            type="material"
+            color="#ffffff"
+            tvParallaxProperties={undefined}
+            size={30}
+          />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>후기 작성하기</Text>
+      </View>
+
+      <Overlay
+        isVisible={isVisible}
+        onBackdropPress={() => {
+          setIsVisible(false);
+        }}
+        overlayStyle={styles.overlay}>
+        <View style={styles.overlayContainer}>
           <InputLabel text="수업명" />
           <Input
             containerStyle={[styles.lectureNameContainerStyle]}
@@ -271,6 +422,32 @@ const ReviewWritePage = (): JSX.Element => {
             value={lectureNameInput.value}
             onChangeText={lectureNameInput.handleTextChange}
           />
+        </View>
+        <SearchResult />
+      </Overlay>
+
+      <View style={[styles.root, styles.rootContainer]}>
+        <View style={[styles.blockMargin]}>
+          <InputLabel text="수업명" />
+          <TouchableOpacity
+            onPress={() => {
+              onPressTouch();
+              setIsVisible(true);
+            }}>
+            <Input
+              disabled
+              containerStyle={[styles.lectureNameContainerStyle]}
+              inputContainerStyle={[styles.lectureNameInputContainerStyle]}
+              inputStyle={[styles.lectureNameInputStyle]}
+              selectionColor="white"
+              leftIconContainerStyle={[
+                styles.lectureNameInputLeftIconContainer,
+              ]}
+              leftIcon={styles.lectureNameInputLeftIcon}
+              value={lectureNameInput.value}
+              onChangeText={lectureNameInput.handleTextChange}
+            />
+          </TouchableOpacity>
         </View>
 
         <InputLabelWithLectureInfo
@@ -399,7 +576,22 @@ const ReviewWritePage = (): JSX.Element => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.completeButtonRoot}>
+        <TouchableOpacity
+          style={styles.completeButtonRoot}
+          onPress={() => {
+            console.log(
+              lectureNameInput.value,
+              searchedLectureInfo,
+              lectureConfirmImage,
+              lectureDescriptionInput.value,
+              bookStateIndex,
+              ratingValue,
+              radioValues,
+              mainTestCount,
+              subTestCount,
+              testCategoryStateIndexs,
+            );
+          }}>
           <Text style={styles.completeButtonText}>완료</Text>
         </TouchableOpacity>
       </View>

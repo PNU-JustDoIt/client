@@ -1,4 +1,5 @@
 import {makeStyles} from 'react-native-elements';
+export const HEADER_HEIGHT = 96;
 
 const useStyle = makeStyles(() => ({
   root: {
@@ -12,6 +13,45 @@ const useStyle = makeStyles(() => ({
   },
   blockMargin: {
     marginBottom: 43,
+  },
+  /* Header 관련 */
+  headerRoot: {
+    flex: 1,
+    height: HEADER_HEIGHT,
+    backgroundColor: '#212121',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  headerIconContainer: {
+    position: 'absolute',
+    left: 14,
+    bottom: 13,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'left',
+    color: '#ffffff',
+    marginBottom: 15,
+  },
+
+  /* search Overlay 관련 */
+  overlay: {
+    width: '100%',
+    backgroundColor: 'black',
+    position: 'absolute',
+    top: HEADER_HEIGHT,
+    borderRadius: 0,
+    padding: 0,
+    paddingTop: 16,
+  },
+  overlayContainer: {
+    flex: 1,
+    paddingLeft: '4.3%',
+    paddingRight: '4.3%',
+    marginBottom: 8,
   },
 
   /* Input Label 관련 */
