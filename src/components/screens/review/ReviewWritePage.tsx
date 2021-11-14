@@ -215,7 +215,9 @@ const ReviewWritePage = (): JSX.Element => {
     codeAndGroup: string;
     category: string;
     gradeAndTheory: string;
+    lectureId: number;
   }>({
+    lectureId: -1,
     lectureName: '',
     codeAndGroup: '-', //교과목 코드/분반,  ex) EA1301/061
     category: '-', // 교과구분, ex)  일선
@@ -300,6 +302,7 @@ const ReviewWritePage = (): JSX.Element => {
               style={styles.ListRoot}
               onPress={() => {
                 const result = {
+                  lectureId: item.lecture_id,
                   lectureName: item.lecture_name,
                   codeAndGroup: item.lecture_code + '-' + item.lecture_group, //교과목 코드/분반,  ex) EA1301/061
                   category: item.lecture_category, // 교과구분, ex)  일선
