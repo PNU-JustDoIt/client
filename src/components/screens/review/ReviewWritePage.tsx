@@ -33,6 +33,12 @@ export interface InputLabelProps {
   subText?: string;
 }
 
+export interface InputLabelWithLectureInfoProps {
+  labelText: string;
+  subLabelText?: string;
+  data: string;
+}
+
 const ReviewWritePage = (): JSX.Element => {
   const styles = useStyle();
 
@@ -46,7 +52,9 @@ const ReviewWritePage = (): JSX.Element => {
     );
   };
 
-  const InputLabelWithLectureInfo = (props: any): JSX.Element => {
+  const InputLabelWithLectureInfo = (
+    props: InputLabelWithLectureInfoProps,
+  ): JSX.Element => {
     const {labelText, subLabelText, data} = props;
 
     return (
@@ -138,7 +146,7 @@ const ReviewWritePage = (): JSX.Element => {
     );
   };
 
-  const ConfirmImageSelector = (props: any): JSX.Element => {
+  const ConfirmImageSelector = (): JSX.Element => {
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
       maxHeight: 300,
@@ -337,6 +345,7 @@ const ReviewWritePage = (): JSX.Element => {
 
   return (
     <ScrollView scrollsToTop={true} ref={scrollRef}>
+      {/* 헤더 섹션 */}
       <View style={styles.headerRoot}>
         <TouchableOpacity style={styles.headerIconContainer}>
           <Icon
@@ -350,6 +359,7 @@ const ReviewWritePage = (): JSX.Element => {
         <Text style={styles.headerText}>후기 작성하기</Text>
       </View>
 
+      {/* 수업명 검색 결과 오버레이 */}
       <Overlay
         isVisible={isVisible}
         onBackdropPress={() => {
@@ -374,6 +384,7 @@ const ReviewWritePage = (): JSX.Element => {
         />
       </Overlay>
 
+      {/* 후기 정보 입력 섹션 */}
       <View style={[styles.root, styles.rootContainer]}>
         <View style={[styles.blockMargin]}>
           <InputLabel text="수업명" />
@@ -526,6 +537,7 @@ const ReviewWritePage = (): JSX.Element => {
         <TouchableOpacity
           style={styles.completeButtonRoot}
           onPress={() => {
+            /* axios request 를 통한 save 로직 필요 */
             console.log(
               lectureNameInput.value,
               searchedLectureInfo,
