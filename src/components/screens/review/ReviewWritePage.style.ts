@@ -54,6 +54,59 @@ const useStyle = makeStyles(() => ({
     marginBottom: 8,
   },
 
+  /* Search Result 관련 */
+  flatList: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    backgroundColor: '#262626',
+    maxHeight: 600,
+  },
+  ListRoot: {
+    flex: 1,
+    backgroundColor: '#262626',
+    flexDirection: 'row',
+    height: 50,
+  },
+  listLectureTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingLeft: 28,
+  },
+  listLectureText: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 19,
+    letterSpacing: 0,
+    textAlign: 'left',
+    color: '#ffffff',
+  },
+  listLectureInfoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+  },
+  listLectureInfoLeftText: {
+    opacity: 0.6,
+    fontSize: 14,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'left',
+    color: '#ffffff',
+    marginRight: 8,
+  },
+  listLectureInfoRightText: {
+    opacity: 0.8,
+    fontSize: 14,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'left',
+    color: '#ffffff',
+  },
+
   /* Input Label 관련 */
   labelTitle: {
     fontSize: 17,

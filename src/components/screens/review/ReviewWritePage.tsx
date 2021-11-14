@@ -21,11 +21,10 @@ import {Overlay} from 'react-native-elements/dist/overlay/Overlay';
 import {
   launchImageLibrary,
   ImageLibraryOptions,
-  Callback,
 } from 'react-native-image-picker';
-import ModalDropdown from 'react-native-modal-dropdown';
 
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
+import {lectureData, LectureData} from './lectureData';
 
 import useStyle from './ReviewWritePage.style';
 
@@ -211,11 +210,13 @@ const ReviewWritePage = (): JSX.Element => {
   /**
    * @name 검색된_수업정보
    */
-  const [searchedLectureInfo] = React.useState<{
+  const [searchedLectureInfo, setSearchedLectureInfo] = React.useState<{
+    lectureName: string;
     codeAndGroup: string;
     category: string;
     gradeAndTheory: string;
   }>({
+    lectureName: '',
     codeAndGroup: '-', //교과목 코드/분반,  ex) EA1301/061
     category: '-', // 교과구분, ex)  일선
     gradeAndTheory: '-', // 학점이론실습, ex) 3/3/2
@@ -264,39 +265,6 @@ const ReviewWritePage = (): JSX.Element => {
     number[]
   >([]);
 
-  const dummy = [
-    {
-      id: 0,
-      lectureName: '행복의 심리학',
-      code: 'ZF11803-001',
-      professorName: '서수길',
-    },
-    {
-      id: 1,
-      lectureName: '행복의 심리학',
-      code: 'ZF11803-001',
-      professorName: '서수길',
-    },
-    {
-      id: 2,
-      lectureName: '행복의 심리학',
-      code: 'ZF11803-001',
-      professorName: '서수길',
-    },
-    {
-      id: 3,
-      lectureName: '행복의 심리학',
-      code: 'ZF11803-001',
-      professorName: '서수길',
-    },
-    {
-      id: 4,
-      lectureName: '행복의 심리학',
-      code: 'ZF11803-001',
-      professorName: '서수길',
-    },
-  ];
-
   /**
    * @name 스크롤뷰_ref
    */
@@ -311,75 +279,50 @@ const ReviewWritePage = (): JSX.Element => {
   };
   const [isVisible, setIsVisible] = React.useState(false);
 
-  const SearchResult = () => {
+  interface SearchFlatListProps {
+    data: LectureData[];
+  }
+
+  const handleLectureData = (target: string): LectureData[] => {
+    return lectureData.filter(each => each.lecture_name.includes(target));
+  };
+
+  const SearchResultFlatList = (props: SearchFlatListProps) => {
+    const {data} = props;
+
     return (
       <FlatList
-        data={dummy}
-        style={{
-          paddingLeft: 0,
-          paddingRight: 0,
-          backgroundColor: '#262626',
-          maxHeight: 600,
-        }}
+        data={data}
+        style={styles.flatList}
         renderItem={({item}) => {
           return (
             <TouchableOpacity
-              style={{
-                flex: 1,
-                backgroundColor: '#262626',
-                flexDirection: 'row',
-                height: 50,
+              style={styles.ListRoot}
+              onPress={() => {
+                const result = {
+                  lectureName: item.lecture_name,
+                  codeAndGroup: item.lecture_code + '-' + item.lecture_group, //교과목 코드/분반,  ex) EA1301/061
+                  category: item.lecture_category, // 교과구분, ex)  일선
+                  gradeAndTheory:
+                    item.lecture_grade +
+                    ' · ' +
+                    item.lecture_theory +
+                    ' · ' +
+                    item.lecture_training, // 학점이론실습, ex) 3/3/2
+                };
+                setSearchedLectureInfo(result);
+                lectureNameInput.setValue(result.lectureName);
+                setIsVisible(false);
               }}>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  paddingLeft: 28,
-                }}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 'normal',
-                    fontStyle: 'normal',
-                    lineHeight: 19,
-                    letterSpacing: 0,
-                    textAlign: 'left',
-                    color: '#ffffff',
-                  }}>
-                  {item.lectureName}
-                </Text>
+              <View style={styles.listLectureTextContainer}>
+                <Text style={styles.listLectureText}>{item.lecture_name}</Text>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'row',
-                }}>
-                <Text
-                  style={{
-                    opacity: 0.6,
-                    fontSize: 14,
-                    fontWeight: 'normal',
-                    fontStyle: 'normal',
-                    letterSpacing: 0,
-                    textAlign: 'left',
-                    color: '#ffffff',
-                    marginRight: 8,
-                  }}>
-                  {item.code}
+              <View style={styles.listLectureInfoContainer}>
+                <Text style={styles.listLectureInfoLeftText}>
+                  {item.lecture_code + '-' + item.lecture_group}
                 </Text>
-                <Text
-                  style={{
-                    opacity: 0.8,
-                    fontSize: 14,
-                    fontWeight: 'normal',
-                    fontStyle: 'normal',
-                    letterSpacing: 0,
-                    textAlign: 'left',
-                    color: '#ffffff',
-                  }}>
-                  {item.professorName}
+                <Text style={styles.listLectureInfoRightText}>
+                  {item.lecture_professor_name}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -423,7 +366,9 @@ const ReviewWritePage = (): JSX.Element => {
             onChangeText={lectureNameInput.handleTextChange}
           />
         </View>
-        <SearchResult />
+        <SearchResultFlatList
+          data={handleLectureData(lectureNameInput.value)}
+        />
       </Overlay>
 
       <View style={[styles.root, styles.rootContainer]}>
@@ -444,8 +389,7 @@ const ReviewWritePage = (): JSX.Element => {
                 styles.lectureNameInputLeftIconContainer,
               ]}
               leftIcon={styles.lectureNameInputLeftIcon}
-              value={lectureNameInput.value}
-              onChangeText={lectureNameInput.handleTextChange}
+              value={searchedLectureInfo.lectureName}
             />
           </TouchableOpacity>
         </View>
