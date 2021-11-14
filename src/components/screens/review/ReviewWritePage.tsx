@@ -32,33 +32,9 @@ const ReviewWritePage = (): JSX.Element => {
   const InputLabel = (props: InputLabelProps): JSX.Element => {
     const {text, subText} = props;
     return (
-      <Text
-        style={{
-          fontSize: 17,
-          fontWeight: '600',
-          fontStyle: 'normal',
-          lineHeight: 20,
-          letterSpacing: -0.34,
-          textAlign: 'left',
-          color: '#ffffff',
-
-          marginBottom: 8,
-        }}>
+      <Text style={styles.labelTitle}>
         {text}
-        {subText && (
-          <Text
-            style={{
-              opacity: 0.6,
-              fontSize: 12,
-              fontWeight: 'normal',
-              fontStyle: 'normal',
-              letterSpacing: -0.24,
-              textAlign: 'left',
-              color: '#ffffff',
-            }}>
-            {'\n' + subText}
-          </Text>
-        )}
+        {subText && <Text style={styles.labelSubTitle}>{'\n' + subText}</Text>}
       </Text>
     );
   };
@@ -84,17 +60,9 @@ const ReviewWritePage = (): JSX.Element => {
     const checked = radioValues[idx];
 
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
+      <View style={styles.radioButtonRoot}>
         <Text style={styles.subText}>{subText}</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-          }}>
+        <View style={styles.radioButtonFlex}>
           <CheckBox
             center
             title="있음"
@@ -132,60 +100,19 @@ const ReviewWritePage = (): JSX.Element => {
     const {subText, desc, value, handleChange} = props;
 
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginTop: 13,
-        }}>
+      <View style={styles.subTextRoot}>
         <Text style={styles.subText}>
           {subText}
-          {desc && (
-            <Text
-              style={{
-                fontSize: 10,
-                fontWeight: 'normal',
-                fontStyle: 'normal',
-                lineHeight: 12,
-                letterSpacing: -0.4,
-                textAlign: 'left',
-                color: '#ffffff',
-                opacity: 0.8,
-              }}>
-              &nbsp;&nbsp; {desc}
-            </Text>
-          )}
+          {desc && <Text style={styles.subTextDecs}>&nbsp;&nbsp; {desc}</Text>}
         </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
+        <View style={styles.subTextInputRoot}>
           <Input
             keyboardType="phone-pad"
             maxLength={3}
-            containerStyle={{
-              width: 60,
-              height: 21,
-              marginRight: 12,
-              borderRadius: 4,
-              borderStyle: 'solid',
-              borderWidth: 0.7,
-              borderColor: '#ffffff',
-            }}
-            inputContainerStyle={{
-              width: '100%',
-              height: 21,
-              borderBottomWidth: 0,
-            }}
+            containerStyle={styles.subTextContainer}
+            inputContainerStyle={styles.subTextInputContainer}
             selectionColor="white"
-            inputStyle={{
-              fontSize: 15,
-              fontWeight: 'normal',
-              fontStyle: 'normal',
-              letterSpacing: 0,
-              textAlign: 'center',
-              color: '#ffffff',
-            }}
+            inputStyle={styles.subTextInput}
             value={value}
             onChangeText={(e: string) => {
               if (/^\d+$/.test(e)) {
@@ -472,28 +399,8 @@ const ReviewWritePage = (): JSX.Element => {
           </View>
         </View>
 
-        <TouchableOpacity
-          style={{
-            flex: 1,
-            height: 48,
-            borderRadius: 5,
-            backgroundColor: '#0161ff',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 100,
-            marginBottom: 30,
-          }}>
-          <Text
-            style={{
-              fontSize: 17,
-              fontWeight: 'normal',
-              fontStyle: 'normal',
-              letterSpacing: 0,
-              textAlign: 'left',
-              color: '#ffffff',
-            }}>
-            완료
-          </Text>
+        <TouchableOpacity style={styles.completeButtonRoot}>
+          <Text style={styles.completeButtonText}>완료</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

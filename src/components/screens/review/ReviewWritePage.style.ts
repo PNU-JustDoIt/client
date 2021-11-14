@@ -14,6 +14,28 @@ const useStyle = makeStyles(() => ({
     marginBottom: 43,
   },
 
+  /* Input Label 관련 */
+  labelTitle: {
+    fontSize: 17,
+    fontWeight: '600',
+    fontStyle: 'normal',
+    lineHeight: 20,
+    letterSpacing: -0.34,
+    textAlign: 'left',
+    color: '#ffffff',
+
+    marginBottom: 8,
+  },
+  labelSubTitle: {
+    opacity: 0.6,
+    fontSize: 12,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: -0.24,
+    textAlign: 'left',
+    color: '#ffffff',
+  },
+
   /* 수업명 input box */
   lectureNameContainerStyle: {
     height: 40,
@@ -87,10 +109,20 @@ const useStyle = makeStyles(() => ({
     textAlignVertical: 'top',
   },
 
+  /* Rating 관련 */
   ratingContainer: {
     alignItems: 'flex-start',
   },
 
+  /* Radio button Group 관련 */
+  radioButtonRoot: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  radioButtonFlex: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   radioButtonContainer: {
     padding: 0,
     margin: 0,
@@ -109,6 +141,12 @@ const useStyle = makeStyles(() => ({
     color: '#ffffff',
   },
 
+  /* SubText With Count 관련 */
+  subTextRoot: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 13,
+  },
   subText: {
     fontSize: 14,
     fontWeight: 'normal',
@@ -117,6 +155,41 @@ const useStyle = makeStyles(() => ({
     textAlign: 'center',
     color: '#ffffff',
     textAlignVertical: 'center',
+  },
+  subTextDecs: {
+    fontSize: 10,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 12,
+    letterSpacing: -0.4,
+    textAlign: 'left',
+    color: '#ffffff',
+    opacity: 0.8,
+  },
+  subTextInputRoot: {
+    flexDirection: 'row',
+  },
+  subTextContainer: {
+    width: 60,
+    height: 21,
+    marginRight: 12,
+    borderRadius: 4,
+    borderStyle: 'solid',
+    borderWidth: 0.7,
+    borderColor: '#ffffff',
+  },
+  subTextInputContainer: {
+    width: '100%',
+    height: 21,
+    borderBottomWidth: 0,
+  },
+  subTextInput: {
+    fontSize: 15,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '#ffffff',
   },
 
   testInfoContainer: {
@@ -201,6 +274,26 @@ const useStyle = makeStyles(() => ({
     right: -10,
     top: -10,
     zIndex: 10,
+  },
+
+  /* 완료 버튼 */
+  completeButtonRoot: {
+    flex: 1,
+    height: 48,
+    borderRadius: 5,
+    backgroundColor: '#0161ff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+    marginBottom: 30,
+  },
+  completeButtonText: {
+    fontSize: 17,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'left',
+    color: '#ffffff',
   },
 }));
 
