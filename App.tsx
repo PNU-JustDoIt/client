@@ -1,39 +1,109 @@
 import {configure} from 'axios-hooks';
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
 import axios from './src/utils/axios';
 
-const App = (): JSX.Element => {
-  return (
-    <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.view}>
-        <Text style={styles.textStyle}>PNU-JustDoIt</Text>
-      </View>
-    </SafeAreaView>
-  );
+// Screens
+import SignInSelectPage from './src/components/screens/sign-in/SignInSelectPage';
+import LocalSignInPage from './src/components/screens/sign-in/LocalSignInPage';
+import InputPhoneNumberPage from './src/components/screens/sign-up/InputPhoneNumberPage';
+import FindIdResultPage from './src/components/screens/find-id/FindIdResultPage';
+import InputUserInfoPage from './src/components/screens/sign-up/InputUserInfoPage';
+import UserContext, {useUser} from './src/utils/context/User.context';
+import Test from './src/components/screens/test';
+
+/* IOS stack 이동 animation options */
+const TransitionScreenOptions = {
+  ...TransitionPresets.SlideFromRightIOS,
 };
+
+const Stack = createStackNavigator<StackParamList>();
 
 /* Global Axios Instance */
 configure({axios: axios.axiosInstance});
 
-const styles = StyleSheet.create({
-  safeAreaView: {
-    width: '100%',
-    height: '100%',
+const App = (): JSX.Element => {
+  /* User Context */
+  const {user, isLogined, saveAccessToken, getProfile, localLogin} = useUser();
 
-    backgroundColor: 'black',
-  },
-  view: {
-    width: '100%',
-    height: '100%',
+  return (
+    <UserContext.Provider
+      value={{
+        user,
+        isLogined,
+        saveAccessToken,
+        getProfile,
+        localLogin,
+      }}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={TransitionScreenOptions}>
+          <>
+            {isLogined ? (
+              <>
+                <Stack.Screen
+                  name="테스트"
+                  component={Test}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <Stack.Screen
+                  name="로그인 방법 선택 페이지"
+                  component={SignInSelectPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
 
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textStyle: {
-    fontSize: 50,
-    color: 'white',
-  },
-});
+                <Stack.Screen
+                  name="로컬 로그인"
+                  component={LocalSignInPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+
+                <Stack.Screen
+                  name="회원가입 또는 아이디 찾기"
+                  component={InputPhoneNumberPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+
+                <Stack.Screen
+                  name="회원가입 정보 입력"
+                  component={InputUserInfoPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+
+                <Stack.Screen
+                  name="아이디 찾기 결과"
+                  component={FindIdResultPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+              </>
+            )}
+          </>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
+  );
+};
 
 export default App;
