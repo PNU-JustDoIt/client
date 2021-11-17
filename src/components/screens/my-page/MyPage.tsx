@@ -10,7 +10,7 @@ import ResignOverlay from '../../organisms/my-page/ResignOverlay';
 import SignoutOverlay from '../../organisms/my-page/SignoutOverlay';
 
 // Styles
-import MyPageStyles from './MyPage.style';
+import MyPageStyles from './styles/MyPage.style';
 
 export default function MyPage(): JSX.Element {
   // MyPage Styles
@@ -36,12 +36,12 @@ export default function MyPage(): JSX.Element {
     {
       id: 0,
       title: '작성한 후기 보기',
-      handler: () => {},
+      navigate_to: '나의후기',
     },
     {
       id: 1,
       title: '계정관리',
-      handler: () => {},
+      navigate_to: '계정관리',
     },
     {
       id: 2,

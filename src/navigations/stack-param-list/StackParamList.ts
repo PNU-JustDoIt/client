@@ -13,6 +13,9 @@ export type StackParamList = {
   '아이디 찾기 결과': InputUserInfoPageParams;
 
   마이페이지: any;
+  나의후기: any;
+  계정관리: any;
+
   '카카오 로그인': any;
   '비밀번호 찾기': any;
 };

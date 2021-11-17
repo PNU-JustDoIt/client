@@ -13,6 +13,8 @@ import FindIdResultPage from './src/components/screens/find-id/FindIdResultPage'
 import InputUserInfoPage from './src/components/screens/sign-up/InputUserInfoPage';
 import UserContext, {useUser} from './src/utils/context/User.context';
 import MyPage from './src/components/screens/my-page/MyPage';
+import AccountManagementPage from './src/components/screens/my-page/AccountManagementPage';
+import MyReviewPage from './src/components/screens/my-review/MyReviewPage';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
@@ -58,6 +60,22 @@ const App = (): JSX.Element => {
                   options={{
                     headerShown: false,
                     headerTitle: ' ',
+                  }}
+                />
+                <Stack.Screen
+                  name="나의후기"
+                  component={MyReviewPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+                <Stack.Screen
+                  name="계정관리"
+                  component={AccountManagementPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: '계정관리',
                   }}
                 />
               </>
