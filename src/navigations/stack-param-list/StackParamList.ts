@@ -4,5 +4,7 @@
  */
 export type StackParamList = {
   테스트: any;
+  '바텀 네비게이션': undefined;
   '메인 화면': undefined;
+  '검색 화면': undefined;
 };
