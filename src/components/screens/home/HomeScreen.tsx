@@ -16,7 +16,13 @@ const HomeScreen = (): JSX.Element => {
   const [buttonState, setButtonState] = React.useState<number>(0);
 
   const handleSelected = (state:number) => {
-    setButtonState(state);
+    if(state===buttonState){
+      setButtonState(0);
+    }
+    else {
+      setButtonState(state);
+    }
+    
   };
   console.log(buttonState);
   return (

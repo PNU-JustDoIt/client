@@ -26,10 +26,10 @@ const LectureShare = () => {
           수강한 강의 후기를 공유하고, 필요한 후기도 찾아보세요!
         </Text>
       </View>
-      {/* <Image
+      <Image
         source={require('../../../assets/images/home/homeshare.png')}
-        style={{width: '100%', height: '112'}}
-      /> */}
+        style={{width: '100%', height: 112}}
+      />
     </View>
   );
 };

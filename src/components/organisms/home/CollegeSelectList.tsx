@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {ListItem, Overlay} from 'react-native-elements';
 import dummyCollege from '../../screens/home/College.Data';
 import dummyCulture from '../../screens/home/Culture.Data';
@@ -25,13 +25,19 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
       {buttonState === 1 ? (
         <ScrollView style={{width: '100%'}}>
           {dummyCulture.map((item, i) => (
-            <ListItem key={i} bottomDivider>
-              <ListItem.Content style={{backgroundColor: 'gray'}}>
-                <ListItem.Title style={{color: 'white'}}>
-                  {item.CultureName}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
+            <TouchableOpacity>
+              <ListItem
+                key={i}
+                containerStyle={{
+                  backgroundColor: 'gray',
+                }}>
+                <ListItem.Content>
+                  <ListItem.Title style={{color: 'white'}}>
+                    {item.CultureName}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       ) : (
@@ -40,13 +46,19 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
       {buttonState === 2 ? (
         <ScrollView style={{width: '100%'}}>
           {dummyCollege.map((item, i) => (
-            <ListItem key={i} bottomDivider>
-              <ListItem.Content style={{backgroundColor: 'gray'}}>
-                <ListItem.Title style={{color: 'white'}}>
-                  {item.CollegeName}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
+            <TouchableOpacity>
+              <ListItem
+                key={i}
+                containerStyle={{
+                  backgroundColor: 'gray',
+                }}>
+                <ListItem.Content>
+                  <ListItem.Title style={{color: 'white'}}>
+                    {item.CollegeName}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       ) : (
@@ -54,14 +66,20 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
       )}
       {buttonState === 3 ? (
         <ScrollView style={{width: '100%'}}>
-          {dummyDepart.map((item, i) => (
-            <ListItem key={i} bottomDivider>
-              <ListItem.Content style={{backgroundColor: 'gray'}}>
-                <ListItem.Title style={{color: 'white'}}>
-                  {item.DepartName}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
+          {dummyCollege.map((item, i) => (
+            <TouchableOpacity>
+              <ListItem
+                key={i}
+                containerStyle={{
+                  backgroundColor: 'gray',
+                }}>
+                <ListItem.Content>
+                  <ListItem.Title style={{color: 'white'}}>
+                    {item.CollegeName}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       ) : (
@@ -69,14 +87,20 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
       )}
       {buttonState === 4 ? (
         <ScrollView style={{width: '100%'}}>
-          {dummyCollege.map((item, i) => (
-            <ListItem key={i} bottomDivider>
-              <ListItem.Content style={{backgroundColor: 'gray'}}>
-                <ListItem.Title style={{color: 'white'}}>
-                  {item.CollegeName}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
+          {dummyDepart.map((item, i) => (
+            <TouchableOpacity>
+              <ListItem
+                key={i}
+                containerStyle={{
+                  backgroundColor: 'gray',
+                }}>
+                <ListItem.Content>
+                  <ListItem.Title style={{color: 'white'}}>
+                    {item.DepartName}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       ) : (
