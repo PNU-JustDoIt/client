@@ -27,7 +27,7 @@ import {
 
 import useEventTargetValue from '../../../../utils/hooks/useEventTargetValue';
 import {CreateLectureReviewReq} from '../dto/create-lecture-review.dto';
-import {lectureData, LectureData} from './lectureData';
+import {lectureData, LectureData} from '../data/lectureData';
 
 import useStyle from './ReviewWritePage.style';
 
@@ -556,7 +556,7 @@ const ReviewWritePage = (): JSX.Element => {
             />
           </View>
         </View>
- 
+
         <TouchableOpacity
           style={[
             styles.completeButtonRoot,

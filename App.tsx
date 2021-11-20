@@ -12,9 +12,9 @@ const App = (): JSX.Element => {
         <Text style={styles.textStyle}>PNU-JustDoIt</Text>
       </View> */}
 
-      {/* <ReviewWritePage /> */}
+      <ReviewWritePage />
 
-      <ReviewDetailPage />
+      {/* <ReviewDetailPage /> */}
     </SafeAreaView>
   );
 };
