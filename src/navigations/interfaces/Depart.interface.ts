@@ -1,3 +1,3 @@
 export interface Depart {
-  DepartName: string; // 학과 이름
+  lecture_department_name: string; // 학과 이름
 }
