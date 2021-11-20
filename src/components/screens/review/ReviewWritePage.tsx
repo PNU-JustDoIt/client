@@ -1,3 +1,4 @@
+import useAxios from 'axios-hooks';
 import React from 'react';
 import {
   Platform,
@@ -6,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import {
@@ -24,6 +26,7 @@ import {
 } from 'react-native-image-picker';
 
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
+import {CreateLectureReviewReq} from './dto/create-lecture-review.dto';
 import {lectureData, LectureData} from './lectureData';
 
 import useStyle from './ReviewWritePage.style';
@@ -41,6 +44,15 @@ export interface InputLabelWithLectureInfoProps {
 
 const ReviewWritePage = (): JSX.Element => {
   const styles = useStyle();
+
+  const [{loading: postLectureReviewLoading}, excuteSaveLectureReview] =
+    useAxios(
+      {
+        url: '/lecture-review/new-one',
+        method: 'POST',
+      },
+      {manual: true},
+    );
 
   const InputLabel = (props: InputLabelProps): JSX.Element => {
     const {text, subText} = props;
@@ -274,6 +286,15 @@ const ReviewWritePage = (): JSX.Element => {
   const [testCategoryStateIndexs, setTestCategoryStateIndexs] = React.useState<
     number[]
   >([]);
+  const handleTestCategory = (indexs: number[]): string => {
+    let result = '';
+    indexs.map((each, index) => {
+      if (index == indexs.length - 1)
+        result = result.concat(TEST_CATEGORY_STATE_LIST[each]);
+      else result = result.concat(TEST_CATEGORY_STATE_LIST[each] + ',');
+    });
+    return result;
+  };
 
   /**
    * @name 스크롤뷰_ref
@@ -288,6 +309,8 @@ const ReviewWritePage = (): JSX.Element => {
     }
   };
   const [isVisible, setIsVisible] = React.useState(false);
+
+  const [completeIsVisible, setCompleteIsVisible] = React.useState(false);
 
   interface SearchFlatListProps {
     data: LectureData[];
@@ -535,24 +558,90 @@ const ReviewWritePage = (): JSX.Element => {
         </View>
 
         <TouchableOpacity
-          style={styles.completeButtonRoot}
-          onPress={() => {
-            /* axios request 를 통한 save 로직 필요 */
-            console.log(
-              lectureNameInput.value,
-              searchedLectureInfo,
-              lectureConfirmImage,
-              lectureDescriptionInput.value,
-              bookStateIndex,
-              ratingValue,
-              radioValues,
-              mainTestCount,
-              subTestCount,
-              testCategoryStateIndexs,
-            );
+          style={[
+            styles.completeButtonRoot,
+            (!searchedLectureInfo ||
+              !lectureConfirmImage ||
+              !lectureDescriptionInput.value ||
+              !mainTestCount ||
+              !subTestCount ||
+              !(testCategoryStateIndexs.length > 0)) && {
+              backgroundColor: '#363636',
+            },
+          ]}
+          disabled={
+            !searchedLectureInfo ||
+            !lectureConfirmImage ||
+            !lectureDescriptionInput.value ||
+            !mainTestCount ||
+            !subTestCount ||
+            !(testCategoryStateIndexs.length > 0)
+          }
+          onPress={async () => {
+            const newLectureReviewData: CreateLectureReviewReq = {
+              lecture_id: searchedLectureInfo.lectureId,
+              user_id: 1,
+
+              certified_image_url: lectureConfirmImage
+                ? lectureConfirmImage
+                : '',
+              review_description: lectureDescriptionInput.value,
+              review_using_books: BOOK_STATE_LIST[bookStateIndex],
+              review_difficulty: ratingValue,
+              review_is_report: radioValues[0],
+              review_is_team_project: radioValues[1],
+              review_main_test_count: Number(mainTestCount),
+              review_sub_test_count: Number(subTestCount),
+              review_test_category: handleTestCategory(testCategoryStateIndexs),
+            };
+
+            excuteSaveLectureReview({
+              data: newLectureReviewData,
+            })
+              .then(() => {
+                setCompleteIsVisible(true);
+              })
+              .catch(err => {
+                console.log(err);
+              });
           }}>
-          <Text style={styles.completeButtonText}>완료</Text>
+          {postLectureReviewLoading ? (
+            <ActivityIndicator size="large" color="white" />
+          ) : (
+            <Text style={styles.completeButtonText}>완료</Text>
+          )}
         </TouchableOpacity>
+
+        {/* 수업명 검색 결과 오버레이 */}
+        <Overlay
+          isVisible={completeIsVisible}
+          onBackdropPress={() => {
+            setCompleteIsVisible(false);
+          }}
+          overlayStyle={{
+            width: '91.5%',
+            display: 'flex',
+            justifyContent: 'center',
+            backgroundColor: '#0161ff',
+            position: 'absolute',
+            bottom: 100,
+            height: 56,
+            borderRadius: 9,
+            paddingLeft: 16,
+            paddingRight: 16,
+          }}>
+          <Text
+            style={{
+              fontSize: 17,
+              fontWeight: '500',
+              fontStyle: 'normal',
+              letterSpacing: -0.54,
+              textAlign: 'center',
+              color: '#ffffff',
+            }}>
+            후기 작성 완료!
+          </Text>
+        </Overlay>
       </View>
     </ScrollView>
   );
