@@ -78,6 +78,32 @@ const useStyle = makeStyles(() => ({
     textAlign: 'left',
     color: '#ffffff',
   },
+
+  exceptionRoot: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    flexDirection: 'column',
+  },
+  exceptionWhiteText: {
+    fontSize: 21,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: 28,
+    letterSpacing: -0.42,
+    textAlign: 'center',
+    color: '#ffffff',
+  },
+  exceptionButton: {
+    width: '91.5%',
+    height: 48,
+    borderRadius: 5,
+    backgroundColor: '#0161ff',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 70,
+  },
 }));
 
 export default useStyle;

@@ -25,8 +25,8 @@ import {
   ImageLibraryOptions,
 } from 'react-native-image-picker';
 
-import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
-import {CreateLectureReviewReq} from './dto/create-lecture-review.dto';
+import useEventTargetValue from '../../../../utils/hooks/useEventTargetValue';
+import {CreateLectureReviewReq} from '../dto/create-lecture-review.dto';
 import {lectureData, LectureData} from './lectureData';
 
 import useStyle from './ReviewWritePage.style';
@@ -556,7 +556,7 @@ const ReviewWritePage = (): JSX.Element => {
             />
           </View>
         </View>
-
+ 
         <TouchableOpacity
           style={[
             styles.completeButtonRoot,

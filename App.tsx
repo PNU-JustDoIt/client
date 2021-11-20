@@ -2,7 +2,7 @@ import {configure} from 'axios-hooks';
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import ReviewDetailPage from './src/components/screens/review/review-detail/ReviewDetailPage';
-import ReviewWritePage from './src/components/screens/review/ReviewWritePage';
+import ReviewWritePage from './src/components/screens/review/review-write/ReviewWritePage';
 import axios from './src/utils/axios';
 
 const App = (): JSX.Element => {
