@@ -1,4 +1,3 @@
-import {AxiosPromise} from 'axios';
 import React from 'react';
 import {KeyboardTypeOptions, TouchableOpacity, View} from 'react-native';
 import {Text, Input} from 'react-native-elements';

@@ -12,7 +12,9 @@ import InputPhoneNumberPage from './src/components/screens/sign-up/InputPhoneNum
 import FindIdResultPage from './src/components/screens/find-id/FindIdResultPage';
 import InputUserInfoPage from './src/components/screens/sign-up/InputUserInfoPage';
 import UserContext, {useUser} from './src/utils/context/User.context';
-import Test from './src/components/screens/test';
+import MyPage from './src/components/screens/my-page/MyPage';
+import AccountManagementPage from './src/components/screens/my-page/AccountManagementPage';
+import MyReviewPage from './src/components/screens/my-review/MyReviewPage';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
@@ -26,7 +28,15 @@ configure({axios: axios.axiosInstance});
 
 const App = (): JSX.Element => {
   /* User Context */
-  const {user, isLogined, saveAccessToken, getProfile, localLogin} = useUser();
+  const {
+    user,
+    isLogined,
+    saveAccessToken,
+    getProfile,
+    localLogin,
+    signout,
+    resign,
+  } = useUser();
 
   return (
     <UserContext.Provider
@@ -36,6 +46,8 @@ const App = (): JSX.Element => {
         saveAccessToken,
         getProfile,
         localLogin,
+        signout,
+        resign,
       }}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={TransitionScreenOptions}>
@@ -43,11 +55,27 @@ const App = (): JSX.Element => {
             {isLogined ? (
               <>
                 <Stack.Screen
-                  name="테스트"
-                  component={Test}
+                  name="마이페이지"
+                  component={MyPage}
                   options={{
                     headerShown: false,
                     headerTitle: ' ',
+                  }}
+                />
+                <Stack.Screen
+                  name="나의후기"
+                  component={MyReviewPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+                <Stack.Screen
+                  name="계정관리"
+                  component={AccountManagementPage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: '계정관리',
                   }}
                 />
               </>
