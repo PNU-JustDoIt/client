@@ -52,7 +52,7 @@ const NewPasswordInputStyles = StyleSheet.create({
     width: '25%',
     height: 40,
     borderRadius: 2,
-    backgroundColor: '#606060',
+    backgroundColor: '#0161ff',
     justifyContent: 'center',
     alignItems: 'center',
   },

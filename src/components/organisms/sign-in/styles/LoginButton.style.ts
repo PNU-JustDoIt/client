@@ -5,7 +5,7 @@ const LoginButtonStyles = StyleSheet.create({
     width: '100%',
     height: 48,
     borderRadius: 3,
-    backgroundColor: '#454545',
+    backgroundColor: '#0161ff',
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#000000',
