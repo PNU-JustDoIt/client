@@ -15,13 +15,13 @@ const App = (): JSX.Element => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-					name="바텀 네비게이션"
-					component={BottomNav}
-					options={{
-						headerShown: false,
-						headerTitle: ' ',
-					}}
-				/>
+          name="바텀 네비게이션"
+          component={BottomNav}
+          options={{
+            headerShown: false,
+            headerTitle: ' ',
+          }}
+        />
         <Stack.Screen
           name="메인 화면"
           component={HomeScreen}
@@ -30,10 +30,10 @@ const App = (): JSX.Element => {
           }}
         />
         <Stack.Screen
-					name="검색 화면"
-					component={SearchScreen}
-					options={{ headerShown: false }}
-				/>
+          name="검색 화면"
+          component={SearchScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
