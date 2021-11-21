@@ -83,8 +83,16 @@ const App = (): JSX.Element => {
                   name="상세 후기 페이지"
                   component={ReviewDetailPage}
                   options={{
-                    headerShown: false,
-                    headerTitle: ' ',
+                    headerTitle: '강의 평가',
+                    headerStyle: {
+                      backgroundColor: '#212121',
+                    },
+                    headerTitleAlign: 'center',
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                      color: 'white',
+                    },
                   }}
                 />
 
