@@ -155,6 +155,8 @@ export default function MyReviewPage(): JSX.Element {
           </View>
         )}
       </View>
+
+      <WriteFloatingButton />
     </SafeAreaView>
   );
 }

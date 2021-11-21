@@ -1,9 +1,12 @@
-import {useNavigation} from '@react-navigation/core';
+import {NavigationProp, useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {FAB, Icon} from 'react-native-elements';
+import {StackParamList} from '../../../navigations/stack-param-list/StackParamList';
 
 export default function WriteFloatingButton(): JSX.Element {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NavigationProp<StackParamList, '후기 작성 페이지'>>();
+
   return (
     <FAB
       placement="right"
