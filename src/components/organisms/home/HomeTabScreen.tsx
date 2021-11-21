@@ -12,6 +12,7 @@ const HomeTabScreen = () => {
       <LectureList />
       <ReviewCard />
       <ReviewCard />
+      <ReviewCard />
     </View>
   );
 };

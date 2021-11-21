@@ -5,7 +5,7 @@ import HomeTabScreen from '../../organisms/home/HomeTabScreen';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {College} from '../../../navigations/interfaces/College.interface';
 import dummyCollege from './College.Data';
-import { ListItem } from 'react-native-elements';
+import {ListItem} from 'react-native-elements';
 import dummyCulture from './Culture.Data';
 import dummyDepart from './Depart.Data';
 import CollegeSelectList from '../../organisms/home/CollegeSelectList';
@@ -15,10 +15,10 @@ const Tab = createMaterialTopTabNavigator();
 const HomeScreen = (): JSX.Element => {
   const [buttonState, setButtonState] = React.useState<number>(0);
 
-  const handleSelected = (state:number) => {
+  const handleSelected = (state: number) => {
     setButtonState(state);
   };
-  console.log(buttonState);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
       <View style={{marginVertical: 56}}>
@@ -30,7 +30,7 @@ const HomeScreen = (): JSX.Element => {
         style={{
           flexDirection: 'row',
           width: '100%',
-          position:'relative',
+          position: 'relative',
           borderBottomColor: '#0161ff',
           borderBottomWidth: 1,
         }}>
@@ -40,7 +40,7 @@ const HomeScreen = (): JSX.Element => {
               height: 40,
               justifyContent: 'center',
             }}
-            onPress={()=>handleSelected(1)}>
+            onPress={() => handleSelected(1)}>
             <Text style={{textAlign: 'center', color: 'white'}}>
               교양/일반선택
             </Text>
@@ -52,7 +52,7 @@ const HomeScreen = (): JSX.Element => {
               height: 40,
               justifyContent: 'center',
             }}
-            onPress={()=>handleSelected(2)}>
+            onPress={() => handleSelected(2)}>
             <Text style={{textAlign: 'center', color: 'white'}}>일반선택</Text>
           </TouchableOpacity>
         </View>
@@ -62,7 +62,7 @@ const HomeScreen = (): JSX.Element => {
               height: 40,
               justifyContent: 'center',
             }}
-            onPress={()=>handleSelected(3)}>
+            onPress={() => handleSelected(3)}>
             <Text style={{textAlign: 'center', color: 'white'}}>교양필수</Text>
           </TouchableOpacity>
         </View>
@@ -72,13 +72,16 @@ const HomeScreen = (): JSX.Element => {
               height: 40,
               justifyContent: 'center',
             }}
-            onPress={()=>handleSelected(4)}>
+            onPress={() => handleSelected(4)}>
             <Text style={{textAlign: 'center', color: 'white'}}>전공</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <CollegeSelectList buttonState={buttonState} handleSelected={handleSelected}/>
-      
+      <CollegeSelectList
+        buttonState={buttonState}
+        handleSelected={handleSelected}
+      />
+
       <HomeTabScreen />
     </SafeAreaView>
   );

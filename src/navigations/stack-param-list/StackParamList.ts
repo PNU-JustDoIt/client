@@ -1,5 +1,6 @@
 import {InputPhoneNumberPageParams} from '../interfaces/InputPhoneNumberPage.params';
 import {InputUserInfoPageParams} from '../interfaces/InputUserInfoPage.params';
+import {ReviewDetail} from '../interfaces/ReviewDetail.interface';
 
 /**
  * @name root_stack_param_list
@@ -16,7 +17,7 @@ export type StackParamList = {
   '회원가입 정보 입력': InputUserInfoPageParams;
   '아이디 찾기 결과': InputUserInfoPageParams;
 
-  '상세 후기 페이지': any;
+  '상세 후기 페이지': ReviewDetail;
   '후기 작성 페이지': any;
 
   마이페이지: any;

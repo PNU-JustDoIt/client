@@ -27,7 +27,6 @@ export function useUser(): UserContextValue {
    * Auto-Login 처리
    */
   useEffect(() => {
-    console.log('useEffect');
     async function autoSignIn() {
       if ((!user || user === null) && !isLogined) {
         console.log(

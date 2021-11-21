@@ -29,7 +29,7 @@ export default function FindIdResultPage(): JSX.Element {
   const handleFetchId = () => {
     fetchId()
       .then(res => {
-        console.log('res.data:', res.data);
+        // console.log('res.data:', res.data);
         setResult(res.data);
       })
       .catch(err => {

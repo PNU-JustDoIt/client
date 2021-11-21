@@ -1,16 +1,17 @@
-import {configure} from 'axios-hooks';
 import React from 'react';
+// navigator
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
-import ReviewWritePage from './src/components/screens/review/ReviewWritePage';
+
+//axios
 import axios from './src/utils/axios';
+import {configure} from 'axios-hooks';
+
+// Screens
 import BottomNav from './src/navigations/bottom-nav/BottomNav';
 import HomeScreen from './src/components/screens/home/HomeScreen';
 import SearchScreen from './src/components/screens/search/SearchScreen';
-
-// Screens
 import SignInSelectPage from './src/components/screens/sign-in/SignInSelectPage';
 import LocalSignInPage from './src/components/screens/sign-in/LocalSignInPage';
 import InputPhoneNumberPage from './src/components/screens/sign-up/InputPhoneNumberPage';
@@ -20,7 +21,8 @@ import UserContext, {useUser} from './src/utils/context/User.context';
 import MyPage from './src/components/screens/my-page/MyPage';
 import AccountManagementPage from './src/components/screens/my-page/AccountManagementPage';
 import MyReviewPage from './src/components/screens/my-review/MyReviewPage';
-import {FAB} from 'react-native-elements';
+import ReviewDetailPage from './src/components/screens/review/review-detail/ReviewDetailPage';
+import ReviewWritePage from './src/components/screens/review/review-write/ReviewWritePage';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
@@ -71,6 +73,15 @@ const App = (): JSX.Element => {
                 <Stack.Screen
                   name="후기 작성 페이지"
                   component={ReviewWritePage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+
+                <Stack.Screen
+                  name="상세 후기 페이지"
+                  component={ReviewDetailPage}
                   options={{
                     headerShown: false,
                     headerTitle: ' ',
