@@ -60,7 +60,7 @@ const App = (): JSX.Element => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={TransitionScreenOptions}>
           <>
-            {!isLogined ? (
+            {isLogined ? (
               <>
                 <Stack.Screen
                   name="바텀 네비게이션"
@@ -70,6 +70,7 @@ const App = (): JSX.Element => {
                     headerTitle: ' ',
                   }}
                 />
+
                 <Stack.Screen
                   name="후기 작성 페이지"
                   component={ReviewWritePage}
@@ -96,26 +97,6 @@ const App = (): JSX.Element => {
                   }}
                 />
 
-                <Stack.Screen
-                  name="메인 화면"
-                  component={HomeScreen}
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen
-                  name="검색 화면"
-                  component={SearchScreen}
-                  options={{headerShown: false}}
-                />
-                <Stack.Screen
-                  name="마이페이지"
-                  component={MyPage}
-                  options={{
-                    headerShown: false,
-                    headerTitle: ' ',
-                  }}
-                />
                 <Stack.Screen
                   name="나의후기"
                   component={MyReviewPage}

@@ -12,7 +12,7 @@ import MyReviewListItem from '../../organisms/my-review/MyReviewListItem';
 import MyReviewPageStyles from './styles/MyReviewPage.style';
 import {ActivityIndicator} from 'react-native-paper';
 import {Image} from 'react-native-elements/dist/image/Image';
-import {style} from '@mui/system';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default function MyReviewPage(): JSX.Element {
   // MyReviewPage Styles
@@ -103,12 +103,8 @@ export default function MyReviewPage(): JSX.Element {
       {
         method: 'GET',
         url: 'user/get-my-review',
-        // data: {
-        //   // user_id: userContext.user?.user_id,
-        //   user_id: 3,
-        // },
         params: {
-          user_id: 3,
+          user_id: userContext.user?.user_id,
         },
       },
       {manual: true},
@@ -134,7 +130,9 @@ export default function MyReviewPage(): JSX.Element {
           <FlatList
             keyExtractor={item => item.review_id.toString()}
             data={getData}
-            renderItem={({item}) => <MyReviewListItem reviewData={item} />}
+            renderItem={({item}) => (
+              <MyReviewListItem reviewData={item} getMyReview={getMyReview} />
+            )}
           />
         ) : (
           <View style={styles.exceptionRoot}>
