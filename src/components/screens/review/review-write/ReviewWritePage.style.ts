@@ -65,7 +65,6 @@ const useStyle = makeStyles(() => ({
     flex: 1,
     backgroundColor: '#262626',
     flexDirection: 'row',
-    height: 50,
   },
   listLectureTextContainer: {
     flex: 1,
