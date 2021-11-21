@@ -26,12 +26,10 @@ const LectureListCultureSelect = (props: LectureListCultureProps) => {
   return (
     <View style={{marginTop: 10}}>
       <Text style={{color: 'white'}}>교양선택</Text>
-      {/* {getData &&
-        getData.map(item => {
-          console.log('items:', item);
-          <ReviewCard reviewData={item} />;
-        })} */}
-      {getData && <ReviewCard reviewData={getData[0]} />}
+      {getData &&
+        getData.map((item, i) => {
+          return <ReviewCard reviewData={item} />;
+        })}
     </View>
   );
 };

@@ -28,8 +28,7 @@ const LectureListMajor = (props: LectureListProps) => {
 
       {getData &&
         getData.map(item => {
-          console.log('items:', item);
-          <ReviewCard reviewData={item} />;
+          return <ReviewCard reviewData={item} />;
         })}
       {getData && getData.length > 0 && <ReviewCard reviewData={getData[0]} />}
     </View>

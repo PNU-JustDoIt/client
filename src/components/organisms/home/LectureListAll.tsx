@@ -25,12 +25,10 @@ const LectureListAll = (props: LectureListAllProps) => {
   return (
     <View style={{marginTop: 10}}>
       <Text style={{color: 'white'}}>최근 강의평</Text>
-      {/* {getData &&
+      {getData &&
         getData.map(item => {
-          console.log('items:', item);
-          <ReviewCard reviewData={item} />;
-        })} */}
-      {getData && <ReviewCard reviewData={getData[0]} />}
+          return <ReviewCard reviewData={item} />;
+        })}
     </View>
   );
 };

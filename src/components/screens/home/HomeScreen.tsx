@@ -22,7 +22,7 @@ const HomeScreen = (): JSX.Element => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
+    <ScrollView style={{flex: 1, backgroundColor: 'black'}}>
       <View style={{marginVertical: 56}}>
         <Text style={{color: 'white', textAlign: 'center', fontSize: 20}}>
           강의평가 피드
@@ -91,7 +91,7 @@ const HomeScreen = (): JSX.Element => {
         selectDepart={selectDepart}
         handleDepart={handleDepart}
       />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 export default HomeScreen;

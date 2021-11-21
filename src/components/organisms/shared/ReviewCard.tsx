@@ -1,7 +1,9 @@
+import {useNavigation} from '@react-navigation/native';
 import useAxios from 'axios-hooks';
 import React from 'react';
 import {Image, View, Text, TouchableOpacity} from 'react-native';
 import {Rating} from 'react-native-elements';
+import {ReviewDetail} from '../../../navigations/interfaces/ReviewDetail.interface';
 import styles from './style/ReviewCardStyles';
 
 const STAR_IMAGE = require('../../../assets/icons/review/star.png');
@@ -12,10 +14,16 @@ export interface Mode {
 }
 
 const ReviewCard = (props: Mode) => {
+  const navigation = useNavigation<any>();
   const {reviewData} = props;
   console.log('review:', reviewData);
+  const reviewParams: ReviewDetail = {
+    review_id: reviewData.review_id,
+  };
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate('상세 후기 페이지', reviewParams)}>
       <View style={{flexDirection: 'row'}}>
         <Text style={styles.profname}>
           {reviewData.lecture_id.lecture_professor_name}

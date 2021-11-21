@@ -28,10 +28,8 @@ const LectureListCulture = (props: LectureListCultureProps) => {
       <Text style={{color: 'white'}}>교양필수</Text>
       {getData &&
         getData.map(item => {
-          console.log('items:', item);
-          <ReviewCard reviewData={item} />;
+          return <ReviewCard reviewData={item} />;
         })}
-      {getData && <ReviewCard reviewData={getData[0]} />}
     </View>
   );
 };

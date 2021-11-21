@@ -30,8 +30,7 @@ const LectureListNormal = (props: LectureListProps) => {
       {/* 요건 안됨 */}
       {getData &&
         getData.map(item => {
-          console.log('items:', item);
-          <ReviewCard reviewData={item} />;
+          return <ReviewCard reviewData={item} />;
         })}
 
       {/* 요건 됨 */}
