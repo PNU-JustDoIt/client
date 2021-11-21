@@ -16,6 +16,9 @@ export type StackParamList = {
   '회원가입 정보 입력': InputUserInfoPageParams;
   '아이디 찾기 결과': InputUserInfoPageParams;
 
+  '상세 후기 페이지': any;
+  '후기 작성 페이지': any;
+
   마이페이지: any;
   나의후기: any;
   계정관리: any;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Text} from 'react-native-elements';
+import WriteFloatingButton from '../../atoms/floating-button/WriteFloatingButton';
 
 export default function MyReviewPage(): JSX.Element {
   return (
@@ -27,6 +28,8 @@ export default function MyReviewPage(): JSX.Element {
           }}>
           MyReviewPage Dummy
         </Text>
+
+        <WriteFloatingButton />
       </View>
     </SafeAreaView>
   );

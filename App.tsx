@@ -4,6 +4,7 @@ import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
+import ReviewWritePage from './src/components/screens/review/ReviewWritePage';
 import axios from './src/utils/axios';
 import BottomNav from './src/navigations/bottom-nav/BottomNav';
 import HomeScreen from './src/components/screens/home/HomeScreen';
@@ -19,6 +20,7 @@ import UserContext, {useUser} from './src/utils/context/User.context';
 import MyPage from './src/components/screens/my-page/MyPage';
 import AccountManagementPage from './src/components/screens/my-page/AccountManagementPage';
 import MyReviewPage from './src/components/screens/my-review/MyReviewPage';
+import {FAB} from 'react-native-elements';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
@@ -56,7 +58,7 @@ const App = (): JSX.Element => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={TransitionScreenOptions}>
           <>
-            {isLogined ? (
+            {!isLogined ? (
               <>
                 <Stack.Screen
                   name="바텀 네비게이션"
@@ -66,6 +68,15 @@ const App = (): JSX.Element => {
                     headerTitle: ' ',
                   }}
                 />
+                <Stack.Screen
+                  name="후기 작성 페이지"
+                  component={ReviewWritePage}
+                  options={{
+                    headerShown: false,
+                    headerTitle: ' ',
+                  }}
+                />
+
                 <Stack.Screen
                   name="메인 화면"
                   component={HomeScreen}
@@ -94,6 +105,7 @@ const App = (): JSX.Element => {
                     headerTitle: ' ',
                   }}
                 />
+
                 <Stack.Screen
                   name="계정관리"
                   component={AccountManagementPage}
