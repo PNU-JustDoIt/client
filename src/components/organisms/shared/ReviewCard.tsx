@@ -52,7 +52,7 @@ const ReviewCard = (props: Mode) => {
         ratingBackgroundColor="grey"
         tintColor="#1c1c1c"
         // startingValue 에 값 입력
-        startingValue={reviewData.lecture_id.review_difficulty}
+        startingValue={reviewData.lecture_id.review_difficulty * 2}
         style={styles.star}
       />
     </TouchableOpacity>
