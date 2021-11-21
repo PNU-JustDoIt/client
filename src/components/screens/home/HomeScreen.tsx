@@ -3,39 +3,22 @@ import {Button, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HomeTabScreen from '../../organisms/home/HomeTabScreen';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {College} from '../../../navigations/interfaces/College.interface';
-import dummyCollege from './College.Data';
-import {ListItem} from 'react-native-elements';
-import dummyCulture from './Culture.Data';
-import dummyDepart from './Depart.Data';
 import CollegeSelectList from '../../organisms/home/CollegeSelectList';
-import useAxios from 'axios-hooks';
 
 const Tab = createMaterialTopTabNavigator();
 
 const HomeScreen = (): JSX.Element => {
   const [buttonState, setButtonState] = React.useState<number>(0);
-  const [
-    {
-      data: getData,
-      error: getError,
-      // loading: getLoading
-    },
-    reload,
-  ] = useAxios<GuestBook[]>(
-    {
-      url: '/findAll',
-      method: 'get',
-      headers: {'Access-Control-Allow-Origin': '*'},
-    },
-    {manual: true},
-  );
+  const [selectDepart, setSelectDepart] = React.useState<string>('');
   const handleSelected = (state: number) => {
     if (state === buttonState) {
       setButtonState(0);
     } else {
       setButtonState(state);
     }
+  };
+  const handleDepart = (state: string) => {
+    setSelectDepart(state);
   };
   console.log(buttonState);
   return (
@@ -99,9 +82,15 @@ const HomeScreen = (): JSX.Element => {
       <CollegeSelectList
         buttonState={buttonState}
         handleSelected={handleSelected}
+        selectDepart={selectDepart}
+        handleDepart={handleDepart}
       />
 
-      <HomeTabScreen />
+      <HomeTabScreen
+        buttonState={buttonState}
+        selectDepart={selectDepart}
+        handleDepart={handleDepart}
+      />
     </SafeAreaView>
   );
 };

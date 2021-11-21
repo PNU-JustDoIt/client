@@ -3,27 +3,16 @@ import React from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {ListItem, Overlay} from 'react-native-elements';
 import {Depart} from '../../../navigations/interfaces/Depart.interface';
-import dummyCollege from '../../screens/home/College.Data';
 import dummyCulture from '../../screens/home/Culture.Data';
-import dummyDepart from '../../screens/home/Depart.Data';
 
 export interface CollegeSelectListProps {
   buttonState: number;
   handleSelected: (state: number) => void;
+  selectDepart: string;
+  handleDepart: (state: string) => void;
 }
 
 const CollegeSelectList = (props: CollegeSelectListProps) => {
-  // const [
-  //   {
-  //     data: getData,
-  //     error: getError,
-  //     // loading: getLoading
-  //   },
-  //   excuteDepart,
-  // ] = useAxios<any[]>({
-  //   url: '/lecture/find-lecture',
-  //   method: 'get',
-  // });
   const [
     {
       data: getData,
@@ -35,8 +24,8 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
     url: '/lecture/find-depart',
     method: 'get',
   });
-  const {buttonState, handleSelected} = props;
-  console.log('lecture:', getData);
+  const {buttonState, handleSelected, selectDepart, handleDepart} = props;
+  console.log('depart:', getData);
   return (
     <View
       style={{
@@ -50,7 +39,10 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
       {buttonState === 1 ? (
         <ScrollView style={{width: '100%'}}>
           {dummyCulture?.map((item, i) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleDepart(item.CultureName), handleSelected(5);
+              }}>
               <ListItem
                 key={item.CultureName}
                 containerStyle={{
@@ -68,10 +60,13 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
       ) : (
         <></>
       )}
-      {buttonState === 3 ? (
+      {/* {buttonState === 3 ? (
         <ScrollView style={{width: '100%'}}>
           {getData?.map((item, i) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleDepart(item.lecture_department_name), handleSelected(7);
+              }}>
               <ListItem
                 key={item.lecture_department_name}
                 containerStyle={{
@@ -88,11 +83,14 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
         </ScrollView>
       ) : (
         <></>
-      )}
+      )} */}
       {buttonState === 4 ? (
         <ScrollView style={{width: '100%'}}>
           {getData?.map((item, i) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleDepart(item.lecture_department_name), handleSelected(8);
+              }}>
               <ListItem
                 key={item.lecture_department_name}
                 containerStyle={{
