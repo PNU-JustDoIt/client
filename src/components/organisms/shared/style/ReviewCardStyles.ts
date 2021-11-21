@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   star: {
     alignItems: 'flex-start',
     marginTop: 8,
+    backgroundColor: 'transparent',
   },
   categorybox: {
     marginLeft: width * 0.57,

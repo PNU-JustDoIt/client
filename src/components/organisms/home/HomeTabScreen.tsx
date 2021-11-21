@@ -7,6 +7,7 @@ import LectureListNormal from './LectureListNormal';
 import LectureShare from './LectureShare';
 import styles from './style/HomeTabStyles';
 import LectureListMajor from './LectureListMajor';
+import LectureListAll from './LectureListAll';
 export interface HomeTabProps {
   buttonState: number;
   selectDepart: string;
@@ -18,6 +19,13 @@ const HomeTabScreen = (props: HomeTabProps) => {
   return (
     <View style={styles.homeback}>
       <LectureShare />
+      {buttonState == 0 && (
+        <LectureListAll
+          buttonState={buttonState}
+          selectDepart={selectDepart}
+          handleDepart={handleDepart}
+        />
+      )}
       {/* 교양선택 */}
       {buttonState == 5 && (
         <LectureListCultureSelect

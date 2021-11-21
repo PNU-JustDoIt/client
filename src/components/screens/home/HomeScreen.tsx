@@ -20,7 +20,7 @@ const HomeScreen = (): JSX.Element => {
   const handleDepart = (state: string) => {
     setSelectDepart(state);
   };
-  console.log(buttonState);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
       <View style={{marginVertical: 56}}>

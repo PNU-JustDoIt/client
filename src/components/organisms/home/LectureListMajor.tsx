@@ -24,7 +24,7 @@ const LectureListMajor = (props: LectureListProps) => {
   console.log('selectDepart:', getData);
   return (
     <View style={{marginTop: 10}}>
-      <Text style={{color: 'white'}}>{'전공'} </Text>
+      <Text style={{color: 'white'}}>전공 </Text>
 
       {getData &&
         getData.map(item => {

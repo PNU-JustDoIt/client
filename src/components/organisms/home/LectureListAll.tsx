@@ -18,7 +18,7 @@ const LectureListAll = (props: LectureListAllProps) => {
     },
     excuteDepart,
   ] = useAxios<any[]>({
-    url: `/lecture-review/`,
+    url: `/lecture-review/review`,
     method: 'get',
   });
   console.log('selectDepart:', getData);
