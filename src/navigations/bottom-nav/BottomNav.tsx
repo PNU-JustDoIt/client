@@ -7,8 +7,8 @@ import BottomNavStyles from './style/BottomNavStyle';
 // screens (수정)
 import HomeScreen from '../../components/screens/home/HomeScreen';
 import SearchScreen from '../../components/screens/search/SearchScreen';
-// import MyReview from '../../components/screens/';
-// import MyPage from '../../components/screens/';
+import MyReviewPage from '../../components/screens/my-review/MyReviewPage';
+import MyPage from '../../components/screens/my-page/MyPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,28 +48,32 @@ const BottomNav = (): JSX.Element => {
                 />
               </View>
             );
-            // }else if(route.name === '나의 후기'){
-            //     return (<View>
-            //         <Image
-            //             style = {BottomNavStyles.tabImage}
-            //             source = {
-            //                 focused
-            //                     ? require('../../assets/icons/tabs/myreview_active.png')
-            //                     : require('../../assets/icons/tabs/myreview_inactive.png')
-            //             }
-            //         />
-            //     </View>);
-            // }else if(route.name === '마이페이지'){
-            //     return (<View>
-            //         <Image
-            //             style = {BottomNavStyles.tabImage}
-            //             source = {
-            //                 focused
-            //                     ? require('../../assets/icons/tabs/mypage_active.png')
-            //                     : require('../../assets/icons/tabs/mypage_inactive.png')
-            //             }
-            //         />
-            //     </View>);
+          } else if (route.name === '나의 후기') {
+            return (
+              <View>
+                <Image
+                  style={BottomNavStyles.tabImage}
+                  source={
+                    focused
+                      ? require('../../assets/icons/tabs/myreview_active.png')
+                      : require('../../assets/icons/tabs/myreview_inactive.png')
+                  }
+                />
+              </View>
+            );
+          } else if (route.name === '마이페이지') {
+            return (
+              <View>
+                <Image
+                  style={BottomNavStyles.tabImage}
+                  source={
+                    focused
+                      ? require('../../assets/icons/tabs/mypage_active.png')
+                      : require('../../assets/icons/tabs/mypage_inactive.png')
+                  }
+                />
+              </View>
+            );
           }
         },
       })}>
@@ -83,8 +87,16 @@ const BottomNav = (): JSX.Element => {
         options={{headerShown: false}}
         component={SearchScreen}
       />
-      {/* <Tab.Screen name="나의 후기" component={MyReview} /> */}
-      {/* <Tab.Screen name="마이페이지" component={MyPage} /> */}
+      <Tab.Screen
+        name="나의 후기"
+        component={MyReviewPage}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="마이페이지"
+        component={MyPage}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 };
