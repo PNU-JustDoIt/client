@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import useAxios from 'axios-hooks';
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Platform,
   ScrollView,
@@ -31,6 +31,7 @@ import {CreateLectureReviewReq} from '../dto/create-lecture-review.dto';
 import {lectureData, LectureData} from '../data/lectureData';
 
 import useStyle from './ReviewWritePage.style';
+import UserContext from '../../../../utils/context/User.context';
 
 export interface InputLabelProps {
   text: string;
@@ -46,6 +47,8 @@ export interface InputLabelWithLectureInfoProps {
 const ReviewWritePage = (): JSX.Element => {
   const styles = useStyle();
   const navigation = useNavigation();
+
+  const userContext = useContext(UserContext);
 
   const [{loading: postLectureReviewLoading}, excuteSaveLectureReview] =
     useAxios(
@@ -587,7 +590,7 @@ const ReviewWritePage = (): JSX.Element => {
           onPress={async () => {
             const newLectureReviewData: CreateLectureReviewReq = {
               lecture_id: searchedLectureInfo.lectureId,
-              user_id: 1,
+              user_id: userContext.user?.user_id,
 
               certified_image_url: lectureConfirmImage
                 ? lectureConfirmImage

@@ -2,7 +2,7 @@ export interface CreateLectureReviewReq {
   review_id?: number;
 
   lecture_id: number;
-  user_id: number;
+  user_id?: number;
 
   certified_image_url: string;
 
