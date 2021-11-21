@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
+import useAxios from 'axios-hooks';
 import {FlatList, SafeAreaView, Text, View} from 'react-native';
 import {MyReview} from '../../organisms/my-review/dto/my-review.dto';
+import UserContext from '../../../utils/context/User.context';
 
 // Organisms
 import MyReviewListItem from '../../organisms/my-review/MyReviewListItem';
@@ -15,7 +17,7 @@ export default function MyReviewPage(): JSX.Element {
   /**
    * 후기 정보 dummy
    */
-  const reviewDataList: MyReview[] = [
+  const dummy: MyReview[] = [
     {
       review_id: 1,
       lecture_category: '일반선택',
@@ -90,6 +92,34 @@ export default function MyReviewPage(): JSX.Element {
     },
   ];
 
+  const userContext = useContext(UserContext);
+
+  const [{data: getData, loading: getLoading, error: getError}, getMyReview] =
+    useAxios<MyReview[]>(
+      {
+        method: 'GET',
+        url: 'user/get-my-review',
+        data: {
+          user_id: userContext.user?.user_id,
+        },
+      },
+      {manual: true},
+    );
+
+  useEffect(() => {
+    const handleGetMyReview = async () => {
+      await getMyReview()
+        .then(res => {
+          console.log('getMyReview res:', res.data);
+        })
+        .catch(err => {
+          console.log('getMyReview error:', err);
+        });
+    };
+
+    handleGetMyReview();
+  }, []);
+
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.titleContainer}>
@@ -97,11 +127,21 @@ export default function MyReviewPage(): JSX.Element {
       </View>
 
       <View style={styles.container}>
-        <FlatList
-          keyExtractor={item => item.review_id.toString()}
-          data={reviewDataList}
-          renderItem={({item}) => <MyReviewListItem reviewData={item} />}
-        />
+        {!getLoading && !getError && getData ? (
+          <FlatList
+            keyExtractor={item => item.review_id.toString()}
+            data={getData}
+            renderItem={({item}) => <MyReviewListItem reviewData={item} />}
+          />
+        ) : (
+          <Text
+            style={{
+              fontSize: 20,
+              color: 'white',
+            }}>
+            이게왜안되지?
+          </Text>
+        )}
       </View>
     </SafeAreaView>
   );
