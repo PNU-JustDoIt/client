@@ -13,19 +13,16 @@ export interface CollegeSelectListProps {
 }
 
 const CollegeSelectList = (props: CollegeSelectListProps) => {
-  const [
-    {
-      data: getData,
-      error: getError,
-      // loading: getLoading
-    },
-    excuteDepart,
-  ] = useAxios<any[]>({
-    url: '/lecture/find-depart',
-    method: 'get',
-  });
+  const [{data: getData, loading: getLoading, error: getError}, excuteDepart] =
+    useAxios<any[]>({
+      url: 'lecture/find-depart',
+      method: 'get',
+    });
+
   const {buttonState, handleSelected, selectDepart, handleDepart} = props;
-  console.log('depart:', getData);
+
+  console.log('[CollegeSelectList] depart:', getData);
+
   return (
     <View
       style={{
@@ -47,7 +44,9 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
                 key={item.CultureName}
                 containerStyle={{
                   backgroundColor: 'gray',
-                }}>
+                }}
+                hasTVPreferredFocus={undefined}
+                tvParallaxProperties={undefined}>
                 <ListItem.Content>
                   <ListItem.Title style={{color: 'white'}}>
                     {item.CultureName}
@@ -95,7 +94,9 @@ const CollegeSelectList = (props: CollegeSelectListProps) => {
                 key={item.lecture_department_name}
                 containerStyle={{
                   backgroundColor: 'gray',
-                }}>
+                }}
+                hasTVPreferredFocus={undefined}
+                tvParallaxProperties={undefined}>
                 <ListItem.Content>
                   <ListItem.Title style={{color: 'white'}}>
                     {item.lecture_department_name}

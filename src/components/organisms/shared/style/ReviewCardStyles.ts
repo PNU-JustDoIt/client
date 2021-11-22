@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   profname: {
-    textAlign: 'left',
+    // textAlign: 'left',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: 12,
     color: 'white',
   },
@@ -30,7 +32,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   categorybox: {
-    marginLeft: width * 0.57,
     backgroundColor: '#2c3749',
     paddingVertical: height * 0.005,
     borderRadius: 10,

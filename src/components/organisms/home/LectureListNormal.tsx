@@ -11,18 +11,14 @@ export interface LectureListProps {
 const LectureListNormal = (props: LectureListProps) => {
   const {buttonState, selectDepart, handleDepart} = props;
 
-  const [
-    {
-      data: getData,
-      error: getError,
-      // loading: getLoading
-    },
-    excute,
-  ] = useAxios<any[]>({
-    url: `/lecture-review/category/${'일반선택'}`,
-    method: 'get',
-  });
-  console.log('selectDepart:', getData);
+  const [{data: getData, loading: getLoading, error: getError}, excute] =
+    useAxios<any[]>({
+      url: `/lecture-review/category/${'일반선택'}`,
+      method: 'get',
+    });
+
+  console.log('[LectureListNormal - 일반선택] selectDepart:', getData);
+
   return (
     <View style={{marginTop: 10}}>
       <Text style={{color: 'white'}}>일반선택</Text>
@@ -30,11 +26,13 @@ const LectureListNormal = (props: LectureListProps) => {
       {/* 요건 안됨 */}
       {getData &&
         getData.map(item => {
-          return <ReviewCard reviewData={item} />;
+          return <ReviewCard reviewData={item} key={item.review_id} />;
         })}
 
       {/* 요건 됨 */}
-      {getData && <ReviewCard reviewData={getData[0]} />}
+      {getData && (
+        <ReviewCard reviewData={getData[0]} key={getData[0].review_id} />
+      )}
     </View>
   );
 };

@@ -9,7 +9,6 @@ const Tab = createMaterialTopTabNavigator();
 
 const HomeScreen = (): JSX.Element => {
   const [buttonState, setButtonState] = React.useState<number>(0);
-  const [selectDepart, setSelectDepart] = React.useState<string>('');
   const handleSelected = (state: number) => {
     if (state === buttonState) {
       setButtonState(0);
@@ -17,6 +16,8 @@ const HomeScreen = (): JSX.Element => {
       setButtonState(state);
     }
   };
+
+  const [selectDepart, setSelectDepart] = React.useState<string>('');
   const handleDepart = (state: string) => {
     setSelectDepart(state);
   };
@@ -28,6 +29,7 @@ const HomeScreen = (): JSX.Element => {
           강의평가 피드
         </Text>
       </View>
+
       <View
         style={{
           flexDirection: 'row',
@@ -48,6 +50,7 @@ const HomeScreen = (): JSX.Element => {
             </Text>
           </TouchableOpacity>
         </View>
+
         <View style={{width: '25%'}}>
           <TouchableOpacity
             style={{
@@ -58,6 +61,7 @@ const HomeScreen = (): JSX.Element => {
             <Text style={{textAlign: 'center', color: 'white'}}>일반선택</Text>
           </TouchableOpacity>
         </View>
+
         <View style={{width: '25%'}}>
           <TouchableOpacity
             style={{
@@ -68,6 +72,7 @@ const HomeScreen = (): JSX.Element => {
             <Text style={{textAlign: 'center', color: 'white'}}>교양필수</Text>
           </TouchableOpacity>
         </View>
+
         <View style={{width: '20%'}}>
           <TouchableOpacity
             style={{
@@ -79,6 +84,7 @@ const HomeScreen = (): JSX.Element => {
           </TouchableOpacity>
         </View>
       </View>
+
       <CollegeSelectList
         buttonState={buttonState}
         handleSelected={handleSelected}

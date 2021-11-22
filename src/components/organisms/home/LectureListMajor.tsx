@@ -21,16 +21,20 @@ const LectureListMajor = (props: LectureListProps) => {
     url: `/lecture-review/department/${selectDepart}`,
     method: 'get',
   });
+
   console.log('selectDepart:', getData);
+
   return (
     <View style={{marginTop: 10}}>
       <Text style={{color: 'white'}}>전공 </Text>
 
       {getData &&
         getData.map(item => {
-          return <ReviewCard reviewData={item} />;
+          return <ReviewCard reviewData={item} key={item.review_id} />;
         })}
-      {getData && getData.length > 0 && <ReviewCard reviewData={getData[0]} />}
+      {getData && getData.length > 0 && (
+        <ReviewCard reviewData={getData[0]} key={getData[0].review_id} />
+      )}
     </View>
   );
 };

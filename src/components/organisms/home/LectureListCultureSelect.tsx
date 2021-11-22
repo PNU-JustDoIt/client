@@ -28,7 +28,7 @@ const LectureListCultureSelect = (props: LectureListCultureProps) => {
       <Text style={{color: 'white'}}>교양선택</Text>
       {getData &&
         getData.map((item, i) => {
-          return <ReviewCard reviewData={item} />;
+          return <ReviewCard reviewData={item} key={item.review_id} />;
         })}
     </View>
   );
