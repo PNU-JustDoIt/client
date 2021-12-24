@@ -8,7 +8,6 @@ import CollegeSelectList from '../../organisms/home/CollegeSelectList';
 const Tab = createMaterialTopTabNavigator();
 
 const HomeScreen = (): JSX.Element => {
-  /*test*/
   const [buttonState, setButtonState] = React.useState<number>(0);
   const [selectDepart, setSelectDepart] = React.useState<string>('');
   const handleSelected = (state: number) => {
